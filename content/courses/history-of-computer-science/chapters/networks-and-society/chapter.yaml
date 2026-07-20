@@ -1,0 +1,6 @@
+id: networks-and-society
+title: "Networks and Society"
+description: "A focused unit in A Brief History of Computer Science."
+lessons:
+  - lessons/01-networks-change-scale.mcf
+  - lessons/02-computing-and-responsibility.mcf

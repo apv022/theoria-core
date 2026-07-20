@@ -1,0 +1,6 @@
+id: craft-and-form
+title: "Craft and Form"
+description: "A focused unit in Edgar Allan Poe: Sound, Shadow, and Story."
+lessons:
+  - lessons/01-sound-in-poetry.mcf
+  - lessons/02-unreliable-voices.mcf

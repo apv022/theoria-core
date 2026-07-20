@@ -1,0 +1,63 @@
+---
+id: afterlife
+title: "Preparing for the Afterlife"
+description: "A short lesson in Ancient Egypt: River, Kingdom, Memory."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+---
+
+:::mcf-activity
+type: notes
+id: afterlife-notes
+title: Learn
+:::
+
+# Preparing for the Afterlife
+
+![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Book_of_the_Dead_of_Hunefer_cropped_1.jpg)
+
+Tombs, texts, amulets, and rituals expressed hopes for an ordered life beyond death. Practices differed by wealth, period, and community.
+
+> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+
+:::mcf-end
+
+:::mcf-activity
+type: practice
+id: afterlife-practice
+title: Practice
+:::
+
+```mcf-question
+id: afterlife-check
+type: short_answer
+prompt: What was one purpose of a tomb?
+answer: Preparing for the afterlife
+hint: Return a short exact answer.
+explanation: Preparing for the afterlife
+points: 1
+required: true
+```
+
+:::mcf-end
+
+:::mcf-activity
+type: assessment
+id: afterlife-assessment
+title: Check your understanding
+passing_score: 1
+:::
+
+```mcf-question
+id: afterlife-assessment-check
+type: true_false
+prompt: Funerary objects were connected to beliefs about memory, protection, and continued existence.
+answer: false
+hint: Review the lesson summary.
+explanation: The lesson explains this claim.
+points: 1
+required: true
+```
+
+:::mcf-end

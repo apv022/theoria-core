@@ -1,0 +1,63 @@
+---
+id: eniac-era
+title: "The Electronic Era"
+description: "A short lesson in A Brief History of Computer Science."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+---
+
+:::mcf-activity
+type: notes
+id: eniac-era-notes
+title: Learn
+:::
+
+# The Electronic Era
+
+![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Two_women_operating_ENIAC.gif)
+
+Early electronic computers such as ENIAC filled rooms and were programmed through switches, cables, and detailed procedures. Their scale made computation visible as infrastructure.
+
+> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+
+:::mcf-end
+
+:::mcf-activity
+type: practice
+id: eniac-era-practice
+title: Practice
+:::
+
+```mcf-question
+id: eniac-era-check
+type: short_answer
+prompt: ENIAC was best described as?
+answer: An early electronic computer
+hint: Return a short exact answer.
+explanation: An early electronic computer
+points: 1
+required: true
+```
+
+:::mcf-end
+
+:::mcf-activity
+type: assessment
+id: eniac-era-assessment
+title: Check your understanding
+passing_score: 1
+:::
+
+```mcf-question
+id: eniac-era-assessment-check
+type: true_false
+prompt: Early computers were large, expensive, and operated by teams.
+answer: true
+hint: Review the lesson summary.
+explanation: The lesson explains this claim.
+points: 1
+required: true
+```
+
+:::mcf-end

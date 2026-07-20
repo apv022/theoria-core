@@ -1,0 +1,16 @@
+mcf: "1.0"
+id: basic-arithmetic
+title: "Basic Arithmetic: Number Sense and Operations"
+language: en
+description:
+  "A friendly foundation in place value, addition, subtraction, multiplication, division, and
+  everyday problem solving."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+version: "1.0.0"
+cover: assets/images/cover.svg
+chapters:
+  - source: chapters/numbers-and-place-value
+  - source: chapters/addition-and-subtraction
+  - source: chapters/multiplication-and-division

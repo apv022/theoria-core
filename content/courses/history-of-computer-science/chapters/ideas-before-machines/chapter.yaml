@@ -1,0 +1,6 @@
+id: ideas-before-machines
+title: "Ideas Before Machines"
+description: "A focused unit in A Brief History of Computer Science."
+lessons:
+  - lessons/01-algorithms-before-computers.mcf
+  - lessons/02-ada-lovelace-and-general-purpose-ideas.mcf

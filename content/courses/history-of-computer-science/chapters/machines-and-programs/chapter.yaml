@@ -1,0 +1,6 @@
+id: machines-and-programs
+title: "Machines and Programs"
+description: "A focused unit in A Brief History of Computer Science."
+lessons:
+  - lessons/01-the-electronic-era.mcf
+  - lessons/02-programming-languages.mcf

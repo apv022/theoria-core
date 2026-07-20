@@ -1,0 +1,63 @@
+---
+id: ada-lovelace
+title: "Ada Lovelace and General Purpose Ideas"
+description: "A short lesson in A Brief History of Computer Science."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+---
+
+:::mcf-activity
+type: notes
+id: ada-lovelace-notes
+title: Learn
+:::
+
+# Ada Lovelace and General Purpose Ideas
+
+![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Two_women_operating_ENIAC.gif)
+
+Ada Lovelace wrote about how a machine might manipulate symbols according to rules. Her notes helped frame computation as more than numerical calculation.
+
+> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+
+:::mcf-end
+
+:::mcf-activity
+type: practice
+id: ada-lovelace-practice
+title: Practice
+:::
+
+```mcf-question
+id: ada-lovelace-check
+type: short_answer
+prompt: What can a general-purpose machine manipulate?
+answer: Symbols
+hint: Return a short exact answer.
+explanation: Symbols
+points: 1
+required: true
+```
+
+:::mcf-end
+
+:::mcf-activity
+type: assessment
+id: ada-lovelace-assessment
+title: Check your understanding
+passing_score: 1
+:::
+
+```mcf-question
+id: ada-lovelace-assessment-check
+type: true_false
+prompt: The idea that instructions can operate on representations is fundamental to programming.
+answer: false
+hint: Review the lesson summary.
+explanation: The lesson explains this claim.
+points: 1
+required: true
+```
+
+:::mcf-end

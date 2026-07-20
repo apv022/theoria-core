@@ -1,0 +1,63 @@
+---
+id: nile-rhythm
+title: "The Nile’s Rhythm"
+description: "A short lesson in Ancient Egypt: River, Kingdom, Memory."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+---
+
+:::mcf-activity
+type: notes
+id: nile-rhythm-notes
+title: Learn
+:::
+
+# The Nile’s Rhythm
+
+![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Book_of_the_Dead_of_Hunefer_cropped_1.jpg)
+
+The Nile was not simply a backdrop. Its annual flood renewed fields, shaped travel, and helped make a long, connected kingdom possible.
+
+> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+
+:::mcf-end
+
+:::mcf-activity
+type: practice
+id: nile-rhythm-practice
+title: Practice
+:::
+
+```mcf-question
+id: nile-rhythm-check
+type: short_answer
+prompt: Which river was central to ancient Egyptian agriculture?
+answer: The Nile
+hint: Return a short exact answer.
+explanation: The Nile
+points: 1
+required: true
+```
+
+:::mcf-end
+
+:::mcf-activity
+type: assessment
+id: nile-rhythm-assessment
+title: Check your understanding
+passing_score: 1
+:::
+
+```mcf-question
+id: nile-rhythm-assessment-check
+type: true_false
+prompt: Egyptian farming followed a seasonal rhythm of flood, planting, and harvest. Settlements, trade, and political power clustered along the river.
+answer: true
+hint: Review the lesson summary.
+explanation: The lesson explains this claim.
+points: 1
+required: true
+```
+
+:::mcf-end

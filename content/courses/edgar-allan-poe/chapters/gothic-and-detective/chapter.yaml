@@ -1,0 +1,6 @@
+id: gothic-and-detective
+title: "Gothic and Detective Fiction"
+description: "A focused unit in Edgar Allan Poe: Sound, Shadow, and Story."
+lessons:
+  - lessons/01-gothic-pressure.mcf
+  - lessons/02-dupin-s-method.mcf

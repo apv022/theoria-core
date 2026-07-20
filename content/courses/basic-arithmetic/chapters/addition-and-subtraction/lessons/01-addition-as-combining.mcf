@@ -1,0 +1,63 @@
+---
+id: addition
+title: "Addition as Combining"
+description: "A short lesson in Basic Arithmetic: Number Sense and Operations."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+---
+
+:::mcf-activity
+type: notes
+id: addition-notes
+title: Learn
+:::
+
+# Addition as Combining
+
+![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
+
+Addition combines quantities. Align place values carefully: ones with ones, tens with tens, and so on.
+
+> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+
+:::mcf-end
+
+:::mcf-activity
+type: practice
+id: addition-practice
+title: Practice
+:::
+
+```mcf-question
+id: addition-check
+type: short_answer
+prompt: What is $37 + 25$?
+answer: 62
+hint: Return a short exact answer.
+explanation: 62
+points: 1
+required: true
+```
+
+:::mcf-end
+
+:::mcf-activity
+type: assessment
+id: addition-assessment
+title: Check your understanding
+passing_score: 1
+:::
+
+```mcf-question
+id: addition-assessment-check
+type: true_false
+prompt: Thirty-seven plus twenty-five is sixty-two.
+answer: true
+hint: Review the lesson summary.
+explanation: The lesson explains this claim.
+points: 1
+required: true
+```
+
+:::mcf-end

@@ -1,0 +1,15 @@
+mcf: "1.0"
+id: ancient-egypt
+title: "Ancient Egypt: River, Kingdom, Memory"
+language: en
+description:
+  "A visual introduction to the people, beliefs, institutions, and long afterlife of ancient Egypt."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+version: "1.0.0"
+cover: assets/images/cover.svg
+chapters:
+  - source: chapters/river-and-land
+  - source: chapters/people-and-power
+  - source: chapters/belief-and-legacy

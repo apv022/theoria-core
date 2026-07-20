@@ -1,0 +1,6 @@
+id: addition-and-subtraction
+title: "Addition and Subtraction"
+description: "A focused unit in Basic Arithmetic: Number Sense and Operations."
+lessons:
+  - lessons/01-addition-as-combining.mcf
+  - lessons/02-subtraction-as-difference.mcf

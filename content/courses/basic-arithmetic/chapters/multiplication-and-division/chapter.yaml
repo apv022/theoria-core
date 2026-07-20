@@ -1,0 +1,6 @@
+id: multiplication-and-division
+title: "Multiplication and Division"
+description: "A focused unit in Basic Arithmetic: Number Sense and Operations."
+lessons:
+  - lessons/01-multiplication-as-equal-groups.mcf
+  - lessons/02-division-as-sharing.mcf

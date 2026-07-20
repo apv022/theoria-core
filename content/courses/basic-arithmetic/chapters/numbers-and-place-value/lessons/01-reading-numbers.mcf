@@ -1,0 +1,63 @@
+---
+id: reading-numbers
+title: "Reading Numbers"
+description: "A short lesson in Basic Arithmetic: Number Sense and Operations."
+authors:
+  - "Theoria Learning Studio"
+license: CC-BY-4.0
+---
+
+:::mcf-activity
+type: notes
+id: reading-numbers-notes
+title: Learn
+:::
+
+# Reading Numbers
+
+![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
+
+A digit has a value based on its place. In 4,582, the 5 represents five hundreds, not simply five.
+
+> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+
+:::mcf-end
+
+:::mcf-activity
+type: practice
+id: reading-numbers-practice
+title: Practice
+:::
+
+```mcf-question
+id: reading-numbers-check
+type: short_answer
+prompt: What is the value of 5 in 4,582?
+answer: 500
+hint: Return a short exact answer.
+explanation: 500
+points: 1
+required: true
+```
+
+:::mcf-end
+
+:::mcf-activity
+type: assessment
+id: reading-numbers-assessment
+title: Check your understanding
+passing_score: 1
+:::
+
+```mcf-question
+id: reading-numbers-assessment-check
+type: true_false
+prompt: Place value lets a small set of symbols represent very large quantities.
+answer: true
+hint: Review the lesson summary.
+explanation: The lesson explains this claim.
+points: 1
+required: true
+```
+
+:::mcf-end
