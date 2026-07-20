@@ -1,7 +1,7 @@
 ---
 id: languages
 title: "Programming Languages"
-description: "A short lesson in A Brief History of Computer Science."
+description: "A researched lesson in A Brief History of Computer Science."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Programming Languages
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Two_women_operating_ENIAC.gif)
+![Lesson image for Programming Languages](https://commons.wikimedia.org/wiki/Special:FilePath/Grace_Hopper_and_UNIVAC.jpg)
 
 Programming languages let people express instructions at higher levels of abstraction. Compilers and interpreters translate those instructions into forms a machine can execute.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Programming languages create layers between human intention and machine operations. Early programmers could work close to hardware, but doing so demanded detailed knowledge and made programs difficult to move between machines. Assembly languages gave symbolic names to machine instructions. Higher-level languages then allowed programmers to express calculations, data structures, and control flow in forms closer to human reasoning.
+
+A compiler translates source code into another form, often machine code or an intermediate representation. An interpreter executes instructions through a runtime process. The boundary is not always absolute—modern systems combine compilation, interpretation, optimization, and just-in-time techniques—but the central idea is translation. A language is not merely a prettier calculator; it is a way of organizing thought, constraints, and collaboration.
+
+Grace Hopper’s career helps make this social. Her work on compilers and COBOL was connected to a practical goal: make programming more accessible to people who thought in business and scientific terms rather than raw machine instructions. The image is a prompt to ask how tools change who gets to participate.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://computerhistory.org/timeline/software/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: languages-check
 type: short_answer
-prompt: What translates high-level code for a machine?
-answer: A compiler or interpreter
-hint: Return a short exact answer.
-explanation: A compiler or interpreter
+prompt: "What translates high-level code for a machine?"
+answer: "A compiler or interpreter"
+hint: "Return a short exact answer."
+explanation: "A compiler or interpreter"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: languages-assessment-check
 type: true_false
-prompt: Languages trade direct control for clarity, portability, and productivity.
+prompt: "Languages trade direct control for clarity, portability, and productivity."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

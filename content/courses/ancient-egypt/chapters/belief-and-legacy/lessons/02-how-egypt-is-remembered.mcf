@@ -1,7 +1,7 @@
 ---
 id: egypt-today
 title: "How Egypt Is Remembered"
-description: "A short lesson in Ancient Egypt: River, Kingdom, Memory."
+description: "A researched lesson in Ancient Egypt: River, Kingdom, Memory."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # How Egypt Is Remembered
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Book_of_the_Dead_of_Hunefer_cropped_1.jpg)
+![Lesson image for How Egypt Is Remembered](https://commons.wikimedia.org/wiki/Special:FilePath/Temple_of_Hatshepsut_2010.jpg)
 
 Archaeology, museums, language study, and modern Egyptian scholarship keep revising what we know. Ancient Egypt is not a frozen mystery; it is a field of evidence and debate.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+“Ancient Egypt” is not a museum display waiting for a final explanation. It is a field that changes as archaeologists document sites, conservators examine objects, linguists refine translations, and Egyptian scholars challenge older colonial assumptions. Museums can protect artifacts and make learning possible, but collections also have histories: objects may have been excavated under unequal power, removed from their contexts, or labeled using categories that later research revises.
+
+The modern image of Egypt has often been shaped by Egyptomania—European and American fascination with pyramids, mummies, and pharaohs. That fascination can create beautiful art and public interest, but it can also flatten thousands of years and turn living Egyptian heritage into a costume. Responsible interpretation keeps chronology, local voices, material context, and uncertainty visible.
+
+The Temple of Hatshepsut is useful precisely because it invites multiple questions: how did the monument present a woman ruler, what landscape made it meaningful, how has it been conserved, and how do present-day visitors encounter it? Historical knowledge is strongest when it remains open to better evidence.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.metmuseum.org/toah/hd/egyp/hd_egyp.htm). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: egypt-today-check
 type: short_answer
-prompt: What helps historians revise interpretations?
-answer: New evidence
-hint: Return a short exact answer.
-explanation: New evidence
+prompt: "What helps historians revise interpretations?"
+answer: "New evidence"
+hint: "Return a short exact answer."
+explanation: "New evidence"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: egypt-today-assessment-check
 type: true_false
-prompt: Responsible history asks where an object came from, who studied it, and what evidence supports a claim.
+prompt: "Responsible history asks where an object came from, who studied it, and what evidence supports a claim."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

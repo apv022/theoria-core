@@ -1,7 +1,7 @@
 ---
 id: estimating
 title: "Estimating First"
-description: "A short lesson in Basic Arithmetic: Number Sense and Operations."
+description: "A researched lesson in Basic Arithmetic: Number Sense and Operations."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Estimating First
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
+![Lesson image for Estimating First](https://commons.wikimedia.org/wiki/Special:FilePath/Napier%27s_bones.jpg)
 
 Estimation gives a quick sense of scale. Before calculating exactly, round numbers to nearby friendly values and decide whether an answer is reasonable.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Estimation is not guessing randomly; it is reasoning with a useful level of precision. If a grocery bill contains prices of $19.80, $4.25, and $10.10, rounding them to $20, $4, and $10 gives a quick total of about $34. The exact sum can follow, but the estimate gives a reference point. If a calculator reports $340, the estimate tells us to check the decimal point.
+
+Good estimators choose a strategy. They may round to tens, use compatible numbers, group quantities, or compare an answer with a known benchmark. The right amount of precision depends on the situation: a bridge engineer needs tighter tolerances than someone deciding whether a shelf can hold a few books. Estimation also supports mental math because it lets us simplify before calculating.
+
+Historic tools such as Napier’s bones show that calculation has always involved representations and procedures. The lesson is not that old tools were primitive; it is that people design aids that make numerical relationships easier to see. Use an estimate to explain why an exact answer is plausible.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: estimating-check
 type: short_answer
-prompt: Why estimate?
-answer: To check reasonableness
-hint: Return a short exact answer.
-explanation: To check reasonableness
+prompt: "Why estimate?"
+answer: "To check reasonableness"
+hint: "Return a short exact answer."
+explanation: "To check reasonableness"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: estimating-assessment-check
 type: true_false
-prompt: A sensible estimate can catch a misplaced decimal or an incorrect operation.
+prompt: "A sensible estimate can catch a misplaced decimal or an incorrect operation."
 answer: false
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

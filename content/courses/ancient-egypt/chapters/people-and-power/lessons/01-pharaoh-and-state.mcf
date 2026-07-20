@@ -1,7 +1,7 @@
 ---
 id: pharaoh-state
 title: "Pharaoh and State"
-description: "A short lesson in Ancient Egypt: River, Kingdom, Memory."
+description: "A researched lesson in Ancient Egypt: River, Kingdom, Memory."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Pharaoh and State
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Book_of_the_Dead_of_Hunefer_cropped_1.jpg)
+![Lesson image for Pharaoh and State](https://commons.wikimedia.org/wiki/Special:FilePath/Colossi_of_Memnon_2017.jpg)
 
 The pharaoh was understood as a ruler with religious responsibilities. Officials, local communities, and temples made administration work in practice.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+The pharaoh is often presented as an all-powerful king, but governing Egypt required layers of people and institutions. Officials measured fields, collected grain, supervised labor, managed correspondence, and maintained temples. A vizier could coordinate much of the state’s administration. Scribes transformed spoken orders and material goods into records that could travel across distance and be checked later. Temples were not merely religious spaces: they held land, employed workers, stored goods, and participated in the economy.
+
+Royal imagery expressed an ideal of order, sometimes called *ma’at*: balance, justice, truth, and the proper maintenance of the world. That ideal did not mean everyone experienced society as equal. Authority and wealth were unevenly distributed, and the surviving monuments disproportionately represent royal and elite viewpoints. A historian must hold both facts together: the state had real administrative capacity, and its official images were persuasive performances. Asking how a tax list, temple relief, or royal inscription was produced can reveal as much about power as the words themselves.
+
+Look at the monumental photograph alongside the text. Scale is part of the argument: colossal statues communicate permanence and authority before a viewer reads a single inscription.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.worldhistory.org/Egyptian_Government/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: pharaoh-state-check
 type: short_answer
-prompt: Which group assisted the pharaoh in governing?
-answer: Officials
-hint: Return a short exact answer.
-explanation: Officials
+prompt: "Which group assisted the pharaoh in governing?"
+answer: "Officials"
+hint: "Return a short exact answer."
+explanation: "Officials"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: pharaoh-state-assessment-check
 type: true_false
-prompt: Ancient Egypt was not run by one person alone. A network of administrators gathered resources and organized labor.
+prompt: "Ancient Egypt was not run by one person alone. A network of administrators gathered resources and organized labor."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

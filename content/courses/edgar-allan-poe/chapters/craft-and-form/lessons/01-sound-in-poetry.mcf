@@ -1,7 +1,7 @@
 ---
 id: sound-in-poetry
 title: "Sound in Poetry"
-description: "A short lesson in Edgar Allan Poe: Sound, Shadow, and Story."
+description: "A researched lesson in Edgar Allan Poe: Sound, Shadow, and Story."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,21 @@ title: Learn
 
 # Sound in Poetry
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_2_retouched_and_transparent_bg.png)
+![Lesson image for Sound in Poetry](https://commons.wikimedia.org/wiki/Special:FilePath/The_Raven_Illustration_John_Tenniel.jpg)
 
 Poe cared intensely about sound: repetition, internal rhyme, and measured rhythm create mood before a reader has analyzed every image.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Poe’s poetry often makes sound carry meaning. Refrains, internal rhyme, alliteration, and rhythm can create a feeling of return or entrapment. In “The Raven,” the repeated “Nevermore” is not only a word with a meaning; its position at the end of stanzas turns it into a formal mechanism. Each return seems to close the speaker’s possibilities, even when the speaker’s questions change. Sound makes the poem’s emotional logic physical.
+
+In “The Philosophy of Composition,” Poe describes writing “The Raven” as a deliberate sequence of decisions. Scholars do not have to accept every claim in that essay as a literal behind-the-scenes transcript. It is itself a crafted argument about artistic method. Still, it gives us a productive vocabulary: brevity, unity of effect, refrain, and the relationship between sound and theme.
+
+Try reading a stanza aloud, then mark repeated consonants and vowel sounds. The goal is not to declare that sound has one secret meaning. It is to observe how patterns guide attention and make an emotional atmosphere before interpretation has finished.
+
+@[video](https://www.youtube.com/watch?v=ZOosHvFdjOM "Teaching Poe’s “The Raven” in Context")
+
+**Video companion.** This seminar places The Raven in its nineteenth-century culture of sentiment and close reading. Compare its explanation of sound, repetition, and audience with your own annotations.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.poetryfoundation.org/articles/69390/the-philosophy-of-composition). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +42,10 @@ title: Practice
 ```mcf-question
 id: sound-in-poetry-check
 type: short_answer
-prompt: What can repetition create in a poem?
-answer: Mood
-hint: Return a short exact answer.
-explanation: Mood
+prompt: "What can repetition create in a poem?"
+answer: "Mood"
+hint: "Return a short exact answer."
+explanation: "Mood"
 points: 1
 required: true
 ```
@@ -52,10 +62,10 @@ passing_score: 1
 ```mcf-question
 id: sound-in-poetry-assessment-check
 type: true_false
-prompt: In poems such as The Raven, recurring sound helps make thought feel inescapable.
+prompt: "In poems such as The Raven, recurring sound helps make thought feel inescapable."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

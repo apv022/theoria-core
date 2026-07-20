@@ -40,6 +40,12 @@ export const progressStore = {
   reset: async (courseId: string) => (await database()).delete("progress", courseId),
 };
 
+export const settingsStore = {
+  get: async <T>(key: string) =>
+    (await database()).get("settings", key).then((item) => item?.value as T | undefined),
+  put: async (key: string, value: unknown) => (await database()).put("settings", { key, value }),
+};
+
 export async function storageUsage() {
   if (!navigator.storage?.estimate) return { usage: undefined, quota: undefined };
   return navigator.storage.estimate();

@@ -1,7 +1,7 @@
 ---
 id: internet
 title: "Networks Change Scale"
-description: "A short lesson in A Brief History of Computer Science."
+description: "A researched lesson in A Brief History of Computer Science."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Networks Change Scale
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Two_women_operating_ENIAC.gif)
+![Lesson image for Networks Change Scale](https://commons.wikimedia.org/wiki/Special:FilePath/Internet_map_1024.jpg)
 
 Networks connect computers, people, and services. The internet made computation less about a single machine and more about shared protocols and distributed systems.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+A network is more than wires or radio signals. It is a set of connected systems that exchange information according to protocols. Protocols define formats, addresses, timing, error handling, and expectations. The internet became powerful because different networks could interconnect while agreeing on shared layers of communication. That design made computing less dependent on one central machine.
+
+Distributed systems also introduce new problems. Messages can be delayed, duplicated, lost, or intercepted. A service may work on one part of a network while failing elsewhere. Scale brings resilience and convenience, but also dependence on infrastructure that users may not see. The map in this lesson is therefore an abstraction: it shows relationships and routes, not every human, institution, cable, policy, or inequality behind the network.
+
+When you use a web app, ask what happens between clicking a button and seeing a result. That question connects computer history to contemporary literacy: data has a route, a protocol, a host, and a cost.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.computerhistory.org/internethistory/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: internet-check
 type: short_answer
-prompt: What do shared protocols enable?
-answer: Communication
-hint: Return a short exact answer.
-explanation: Communication
+prompt: "What do shared protocols enable?"
+answer: "Communication"
+hint: "Return a short exact answer."
+explanation: "Communication"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: internet-assessment-check
 type: true_false
-prompt: A protocol is an agreed way for systems to exchange information.
+prompt: "A protocol is an agreed way for systems to exchange information."
 answer: false
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

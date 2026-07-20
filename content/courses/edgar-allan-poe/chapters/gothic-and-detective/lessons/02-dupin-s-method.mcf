@@ -1,7 +1,7 @@
 ---
 id: dupins-method
 title: "Dupin’s Method"
-description: "A short lesson in Edgar Allan Poe: Sound, Shadow, and Story."
+description: "A researched lesson in Edgar Allan Poe: Sound, Shadow, and Story."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Dupin’s Method
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_2_retouched_and_transparent_bg.png)
+![Lesson image for Dupin’s Method](https://commons.wikimedia.org/wiki/Special:FilePath/The_Murders_in_the_Rue_Morgue_illustration.jpg)
 
 Poe’s C. Auguste Dupin stories helped establish detective fiction by centering observation, inference, and the reconstruction of events.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Poe’s C. Auguste Dupin stories helped establish detective fiction by making reasoning part of the plot. Dupin does not merely arrive with a solution; he explains how observation, comparison, reconstruction, and inference can turn scattered clues into a coherent account. “The Murders in the Rue Morgue” is especially important because it places a puzzling crime before a reader and dramatizes the process of solving it.
+
+The detective story creates a contract: the reader expects that evidence will matter, that the solution will be connected to the case, and that confusion will eventually be reorganized. Poe can still surprise readers, but the pleasure comes from watching information change its meaning. Dupin’s method is not identical to modern forensic science, and the genre’s firsts should be stated carefully rather than treated as a single invention. Literary forms develop through predecessors, experiments, and later reinterpretation.
+
+When you read a mystery, keep a two-column record: observable clue and proposed explanation. That small habit protects against accepting a clever theory before the evidence supports it.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://poemuseum.org/tag/short-story/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: dupins-method-check
 type: short_answer
-prompt: What does a detective reconstruct from clues?
-answer: Events
-hint: Return a short exact answer.
-explanation: Events
+prompt: "What does a detective reconstruct from clues?"
+answer: "Events"
+hint: "Return a short exact answer."
+explanation: "Events"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: dupins-method-assessment-check
 type: true_false
-prompt: Poe’s detective stories made reasoning itself part of the drama.
+prompt: "Poe’s detective stories made reasoning itself part of the drama."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

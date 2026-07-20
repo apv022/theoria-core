@@ -50,6 +50,8 @@ export interface Activity {
   questions: Question[];
   passingScore?: number;
   required: boolean;
+  randomize?: boolean;
+  questionPoolSize?: number;
 }
 export interface Lesson {
   id: string;

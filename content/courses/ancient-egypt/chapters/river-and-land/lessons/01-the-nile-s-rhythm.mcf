@@ -1,7 +1,7 @@
 ---
 id: nile-rhythm
 title: "The Nile’s Rhythm"
-description: "A short lesson in Ancient Egypt: River, Kingdom, Memory."
+description: "A researched lesson in Ancient Egypt: River, Kingdom, Memory."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,19 @@ title: Learn
 
 # The Nile’s Rhythm
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Book_of_the_Dead_of_Hunefer_cropped_1.jpg)
+![Lesson image for The Nile’s Rhythm](https://commons.wikimedia.org/wiki/Special:FilePath/Nile_River_and_Delta_from_orbit.jpg)
 
 The Nile was not simply a backdrop. Its annual flood renewed fields, shaped travel, and helped make a long, connected kingdom possible.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+The Nile made an unusual kind of landscape. Most of Egypt is desert, but a narrow ribbon of water and dark alluvial soil supported dense settlement. The river’s annual inundation was not perfectly predictable, yet it created a recurring agricultural calendar: fields were flooded, seeds were planted as the water withdrew, and crops were harvested before the next cycle. Farmers still needed canals, basins, labor, and local knowledge; “the Nile” was never a substitute for work.
+
+That relationship also shaped political imagination. A kingdom that coordinated storage, taxation, transport, and irrigation could turn local harvests into a durable state. Egyptian history was not a simple story of nature creating civilization, however. The river was a route into Nubia and the Mediterranean, a source of fish and reeds, and a boundary that could connect as easily as it divided. Thinking with the landscape helps us see why agriculture, administration, religion, and trade cannot be separated neatly in ancient Egyptian history.
+
+@[video](https://www.youtube.com/watch?v=-WJT_Ezxyw8 "The British Museum: Ancient Egypt")
+
+The linked museum video offers a visual tour of objects rather than a substitute for the lesson. As you watch, notice how often river plants, boats, crops, and movement appear in the material record.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.britannica.com/place/Nile-River). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +40,10 @@ title: Practice
 ```mcf-question
 id: nile-rhythm-check
 type: short_answer
-prompt: Which river was central to ancient Egyptian agriculture?
-answer: The Nile
-hint: Return a short exact answer.
-explanation: The Nile
+prompt: "Which river was central to ancient Egyptian agriculture?"
+answer: "The Nile"
+hint: "Return a short exact answer."
+explanation: "The Nile"
 points: 1
 required: true
 ```
@@ -52,10 +60,10 @@ passing_score: 1
 ```mcf-question
 id: nile-rhythm-assessment-check
 type: true_false
-prompt: Egyptian farming followed a seasonal rhythm of flood, planting, and harvest. Settlements, trade, and political power clustered along the river.
+prompt: "Egyptian farming followed a seasonal rhythm of flood, planting, and harvest. Settlements, trade, and political power clustered along the river."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

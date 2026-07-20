@@ -19,6 +19,8 @@ filesystem. Upstream fixtures are retained as parity tests. The upstream reader 
 ## Course sources
 
 Calculus I comes from the working `mcf-npm/examples/calculus-i` package. Ancient Egypt, Edgar Allan
-Poe, History of Computer Science, and Basic Arithmetic come from the newest ZIP packages in
-`/home/apv/Downloads` dated 2026-07-19. Their MCF source and attribution files are preserved.
-Theoria-only subject, difficulty, featured, and added-date metadata lives in a separate catalog.
+Poe, History of Computer Science, and Basic Arithmetic use the newest candidates found across local
+example trees and generated packages. The final candidates were selected only after parsing them;
+this caught and replaced an older invalid Basic Arithmetic package. Their MCF source and attribution
+files are preserved. Theoria-only subject, difficulty, featured, and added-date metadata lives in a
+separate catalog.

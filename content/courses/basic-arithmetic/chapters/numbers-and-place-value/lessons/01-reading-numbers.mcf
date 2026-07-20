@@ -1,7 +1,7 @@
 ---
 id: reading-numbers
 title: "Reading Numbers"
-description: "A short lesson in Basic Arithmetic: Number Sense and Operations."
+description: "A researched lesson in Basic Arithmetic: Number Sense and Operations."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Reading Numbers
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
+![Lesson image for Reading Numbers](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
 
 A digit has a value based on its place. In 4,582, the 5 represents five hundreds, not simply five.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Place value is the idea that makes our base-ten notation powerful. In 4,582, the symbols do not have fixed values on their own: 4 means four thousands, 5 means five hundreds, 8 means eight tens, and 2 means two ones. The position of each digit tells us which unit it counts. A zero can hold an empty place so that 502 means five hundreds and two ones rather than fifty-two.
+
+An abacus makes place value tangible. Beads can stand for units in columns, and moving a bead changes a quantity while keeping the structure visible. Different cultures have used counting boards, rods, stones, and written notation to represent number. Our decimal system is familiar, not inevitable. Understanding the structure matters more than memorizing a name for each place.
+
+Try decomposing a number in two ways: 4,582 = 4,000 + 500 + 80 + 2, and 4,582 = 45 hundreds + 82 ones. Both descriptions preserve the same quantity. Flexible representations are the foundation for estimation, written algorithms, decimals, and later algebra.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: reading-numbers-check
 type: short_answer
-prompt: What is the value of 5 in 4,582?
-answer: 500
-hint: Return a short exact answer.
-explanation: 500
+prompt: "What is the value of 5 in 4,582?"
+answer: "500"
+hint: "Return a short exact answer."
+explanation: "500"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: reading-numbers-assessment-check
 type: true_false
-prompt: Place value lets a small set of symbols represent very large quantities.
+prompt: "Place value lets a small set of symbols represent very large quantities."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

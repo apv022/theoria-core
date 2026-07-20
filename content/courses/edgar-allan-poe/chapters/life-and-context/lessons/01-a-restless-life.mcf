@@ -1,7 +1,7 @@
 ---
 id: a-restless-life
 title: "A Restless Life"
-description: "A short lesson in Edgar Allan Poe: Sound, Shadow, and Story."
+description: "A researched lesson in Edgar Allan Poe: Sound, Shadow, and Story."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # A Restless Life
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_2_retouched_and_transparent_bg.png)
+![Lesson image for A Restless Life](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_2_retouched_and_transparent_bg.png)
 
 Edgar Allan Poe lived from 1809 to 1849 and worked as a poet, editor, critic, and fiction writer. His career unfolded in a rapidly changing American print culture.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Edgar Allan Poe was born in Boston in 1809, lost both biological parents early, and was raised in the household of John and Frances Allan without being formally adopted. He attended the University of Virginia briefly, served in the military, and became a writer whose income depended heavily on the unstable nineteenth-century magazine market. He worked as an editor and critic as well as a poet and fiction writer. His biography matters, but it should not become a key that supposedly explains every line he wrote.
+
+Poe helped shape several literary forms: Gothic tales, psychological horror, detective fiction, and poems built around musical repetition. His criticism argued for deliberate craft at a time when writers were often expected to produce quickly for periodicals. His life included poverty, conflict, illness, and public controversy; later legends often turned those realities into a simplified “tormented genius” story. Reading responsibly means distinguishing documented evidence from retrospective myth.
+
+The portrait is not Poe himself in an uncomplicated sense. It is an image made by a photographer, reproduced by publishers, and now circulated by archives. Like a biography, it frames a person for an audience.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.poetryfoundation.org/poets/edgar-allan-poe). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: a-restless-life-check
 type: short_answer
-prompt: Which roles did Poe hold?
-answer: Writer and editor
-hint: Return a short exact answer.
-explanation: Writer and editor
+prompt: "Which roles did Poe hold?"
+answer: "Writer and editor"
+hint: "Return a short exact answer."
+explanation: "Writer and editor"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: a-restless-life-assessment-check
 type: true_false
-prompt: Poe wrote in several forms and depended on magazines for much of his professional life.
+prompt: "Poe wrote in several forms and depended on magazines for much of his professional life."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

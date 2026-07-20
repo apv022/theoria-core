@@ -1,7 +1,7 @@
 ---
 id: daily-life
 title: "Daily Life and Work"
-description: "A short lesson in Ancient Egypt: River, Kingdom, Memory."
+description: "A researched lesson in Ancient Egypt: River, Kingdom, Memory."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Daily Life and Work
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Book_of_the_Dead_of_Hunefer_cropped_1.jpg)
+![Lesson image for Daily Life and Work](https://commons.wikimedia.org/wiki/Special:FilePath/Model_of_bakery_and_brewery_from_the_tomb_of_Meketre.jpg)
 
 Most people worked in agriculture and crafts. Homes, food, family ties, and local religious life reveal a society far broader than its monuments.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Most ancient Egyptians were not pharaohs, priests, or pyramid builders. They farmed, fished, baked, brewed, made cloth, shaped wood and stone, traded, raised children, and participated in neighborhood and temple life. Tomb models are valuable because they show work in miniature: a bakery or brewery can make production visible, but it is still an elite person’s decision to place that model in a tomb. Archaeologists therefore read such objects as evidence with a point of view, not as a transparent photograph of ordinary life.
+
+Food and labor were connected to environment and status. Grain supported bread and beer; fish was widely available; meat and imported goods could mark wealth. Women’s lives were shaped by a patriarchal society, yet Egyptian legal and economic evidence shows women could own property, make contracts, inherit, and work in a range of occupations. “Daily life” should therefore not be reduced to a single household stereotype.
+
+Source note: the World History Encyclopedia overview is a starting point, while museum objects let learners ask what kind of evidence survives and who commissioned it.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.worldhistory.org/article/933/daily-life-in-ancient-egypt/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: daily-life-check
 type: short_answer
-prompt: Which activity employed many Egyptians?
-answer: Farming
-hint: Return a short exact answer.
-explanation: Farming
+prompt: "Which activity employed many Egyptians?"
+answer: "Farming"
+hint: "Return a short exact answer."
+explanation: "Farming"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: daily-life-assessment-check
 type: true_false
-prompt: Monuments survive spectacularly, but ordinary labor sustained them and fed the kingdom.
+prompt: "Monuments survive spectacularly, but ordinary labor sustained them and fed the kingdom."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

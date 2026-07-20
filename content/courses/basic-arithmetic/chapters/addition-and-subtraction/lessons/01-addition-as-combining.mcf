@@ -1,7 +1,7 @@
 ---
 id: addition
 title: "Addition as Combining"
-description: "A short lesson in Basic Arithmetic: Number Sense and Operations."
+description: "A researched lesson in Basic Arithmetic: Number Sense and Operations."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Addition as Combining
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
+![Lesson image for Addition as Combining](https://commons.wikimedia.org/wiki/Special:FilePath/Counting_board.jpg)
 
 Addition combines quantities. Align place values carefully: ones with ones, tens with tens, and so on.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Addition combines quantities, but the written algorithm works because place value is organized. To calculate 37 + 25, combine ones first: 7 + 5 = 12. The twelve ones can be renamed as one ten and two ones. Add the tens: three tens plus two tens plus the new ten equals six tens. The result is 62. Regrouping is not a mysterious trick; it is a change of units that preserves quantity.
+
+Models make this visible. Ten single counters can be exchanged for one ten-stick, and ten ten-sticks can be exchanged for one hundred. Number lines show addition as movement, while expanded notation shows the same operation algebraically. Different models are useful because they answer different questions: what is being combined, how far are we moving, and how are units renamed?
+
+An answer should also be checked. Since 37 is about 40 and 25 is about 30, the total should be near 70. The exact answer 62 is plausible; 620 is not. Strong arithmetic joins procedure, representation, estimation, and explanation.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: addition-check
 type: short_answer
-prompt: What is $37 + 25$?
-answer: 62
-hint: Return a short exact answer.
-explanation: 62
+prompt: "What is $37 + 25$?"
+answer: "62"
+hint: "Return a short exact answer."
+explanation: "62"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: addition-assessment-check
 type: true_false
-prompt: Thirty-seven plus twenty-five is sixty-two.
+prompt: "Thirty-seven plus twenty-five is sixty-two."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

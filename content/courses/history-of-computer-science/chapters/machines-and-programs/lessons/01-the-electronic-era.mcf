@@ -1,7 +1,7 @@
 ---
 id: eniac-era
 title: "The Electronic Era"
-description: "A short lesson in A Brief History of Computer Science."
+description: "A researched lesson in A Brief History of Computer Science."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,21 @@ title: Learn
 
 # The Electronic Era
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Two_women_operating_ENIAC.gif)
+![Lesson image for The Electronic Era](https://commons.wikimedia.org/wiki/Special:FilePath/Two_women_operating_ENIAC.gif)
 
 Early electronic computers such as ENIAC filled rooms and were programmed through switches, cables, and detailed procedures. Their scale made computation visible as infrastructure.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+ENIAC was developed during World War II at the University of Pennsylvania for military calculations. It used thousands of vacuum tubes, occupied a large room, and was programmed through physical switches and cables. Six women—often classified in wartime records as “computers”—learned how to configure and operate the machine. Their work was not clerical button-pushing; it required understanding the machine’s architecture, tracing failures, and developing reliable procedures.
+
+The story changes when we ask who receives credit. Engineers who designed hardware were celebrated in many accounts, while the women who made programs run were often left unnamed or described by an occupational label. The Smithsonian’s history of the ENIAC programmers helps restore their contributions without pretending the machine had one inventor or one story.
+
+Notice how the photograph presents human bodies beside an enormous technical system. Early computing was labor-intensive and collaborative. The familiar image of a solitary programmer at a glowing screen came much later. Computer science has always involved people coordinating abstractions, machines, documentation, and failure.
+
+@[video](https://www.youtube.com/watch?v=r_F8zHDwvZc "History of Computers lecture")
+
+**Video companion.** This lecture surveys the Analytical Engine, Ada Lovelace, ENIAC, and the transition toward stored-program computing. Treat it as a broad timeline companion; this course adds detail about the women who operated ENIAC.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://womenshistory.si.edu/human-computer-project). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +42,10 @@ title: Practice
 ```mcf-question
 id: eniac-era-check
 type: short_answer
-prompt: ENIAC was best described as?
-answer: An early electronic computer
-hint: Return a short exact answer.
-explanation: An early electronic computer
+prompt: "ENIAC was best described as?"
+answer: "An early electronic computer"
+hint: "Return a short exact answer."
+explanation: "An early electronic computer"
 points: 1
 required: true
 ```
@@ -52,10 +62,10 @@ passing_score: 1
 ```mcf-question
 id: eniac-era-assessment-check
 type: true_false
-prompt: Early computers were large, expensive, and operated by teams.
+prompt: "Early computers were large, expensive, and operated by teams."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

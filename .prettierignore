@@ -1,0 +1,4 @@
+content/courses/
+public/bundled/
+dist/
+node_modules/

@@ -1,7 +1,7 @@
 ---
 id: division
 title: "Division as Sharing"
-description: "A short lesson in Basic Arithmetic: Number Sense and Operations."
+description: "A researched lesson in Basic Arithmetic: Number Sense and Operations."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Division as Sharing
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
+![Lesson image for Division as Sharing](https://commons.wikimedia.org/wiki/Special:FilePath/Division_by_sharing.svg)
 
 Division shares a quantity equally or asks how many groups fit. Division and multiplication are inverse operations.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Division asks two related questions. If 48 objects are shared among 6 equal groups, how many objects go in each group? If groups of 6 are made from 48 objects, how many groups are possible? Both questions lead to 8, but the units and story are different. Multiplication provides the inverse relationship: because 6 × 8 = 48, both 48 ÷ 6 = 8 and 48 ÷ 8 = 6.
+
+A remainder appears when a quantity cannot be partitioned evenly. In a real situation, the remainder may be left over, rounded up, or represented as a fraction or decimal. The context determines the interpretation. Written long division is a compact record of repeated place-value reasoning, not a disconnected ritual.
+
+Draw a model before calculating when the story is unfamiliar. An array, equal groups, number line, or area model can reveal which number is the dividend, divisor, and quotient. Then estimate: 48 divided by 6 should be near 50 divided by 5, or about 10, so 8 is reasonable. Check with multiplication.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: division-check
 type: short_answer
-prompt: What is $48 \div 6$?
-answer: 8
-hint: Return a short exact answer.
-explanation: 8
+prompt: "What is $48 \\div 6$?"
+answer: "8"
+hint: "Return a short exact answer."
+explanation: "8"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: division-assessment-check
 type: true_false
-prompt: Since $6 \times 8 = 48$, $48 \div 6 = 8$.
+prompt: "Since $6 \\times 8 = 48$, $48 \\div 6 = 8$."
 answer: true
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

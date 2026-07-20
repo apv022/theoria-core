@@ -1,11 +1,673 @@
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  generateSource,
+  initialDraft,
+  newQuestion,
+  slug,
+  uniqueId,
+  type CourseDraft,
+  type DraftActivity,
+  type DraftChapter,
+  type DraftLesson,
+} from "../authoring/model";
+import { localCourses, settingsStore } from "../lib/storage";
+import { downloadBlob, exportZip } from "../mcf/zip";
+import type { ActivityType, QuestionType } from "../types";
+
+const questionTypes: QuestionType[] = [
+  "multiple_choice",
+  "multiple_select",
+  "true_false",
+  "numeric",
+  "short_answer",
+  "essay",
+];
+const clone = <T,>(value: T): T => structuredClone(value);
+
 export default function CreatePage() {
+  const [draft, setDraft] = useState<CourseDraft>(initialDraft);
+  const [chapterIndex, setChapterIndex] = useState(0);
+  const [lessonIndex, setLessonIndex] = useState(0);
+  const [status, setStatus] = useState("Saved locally");
+  const [dragged, setDragged] = useState<number>();
+  useEffect(() => {
+    void settingsStore.get<CourseDraft>("authoring-draft").then((saved) => {
+      if (saved) setDraft(saved);
+    });
+  }, []);
+  const source = useMemo(() => generateSource(draft), [draft]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      void Promise.all([localCourses.put(source), settingsStore.put("authoring-draft", draft)])
+        .then(() => setStatus("Saved locally"))
+        .catch(() => setStatus("Browser storage is full or unavailable"));
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [draft, source]);
+  const chapter = draft.chapters[chapterIndex] ?? draft.chapters[0]!;
+  const lesson = chapter.lessons[lessonIndex] ?? chapter.lessons[0]!;
+  const edit = (change: (next: CourseDraft) => void) =>
+    setDraft((current) => {
+      const next = clone(current);
+      change(next);
+      return next;
+    });
+  const editChapter = (change: (next: DraftChapter) => void) =>
+    edit((next) => change(next.chapters[chapterIndex]!));
+  const editLesson = (change: (next: DraftLesson) => void) =>
+    editChapter((next) => change(next.lessons[lessonIndex]!));
+  const addChapter = () => {
+    const id = uniqueId(
+      "new-chapter",
+      draft.chapters.map((item) => item.id),
+    );
+    edit((next) =>
+      next.chapters.push({
+        id,
+        title: "New chapter",
+        description: "",
+        lessons: [
+          {
+            id: "new-lesson",
+            title: "New lesson",
+            description: "",
+            activities: [
+              {
+                id: "new-lesson-notes",
+                type: "notes",
+                title: "Learn",
+                content: "Write lesson notes here.",
+                questions: [],
+              },
+            ],
+          },
+        ],
+      }),
+    );
+    setChapterIndex(draft.chapters.length);
+    setLessonIndex(0);
+  };
+  const addLesson = () => {
+    const id = uniqueId(
+      "new-lesson",
+      chapter.lessons.map((item) => item.id),
+    );
+    editChapter((next) =>
+      next.lessons.push({
+        id,
+        title: "New lesson",
+        description: "",
+        activities: [
+          {
+            id: `${id}-notes`,
+            type: "notes",
+            title: "Learn",
+            content: "Write lesson notes here.",
+            questions: [],
+          },
+        ],
+      }),
+    );
+    setLessonIndex(chapter.lessons.length);
+  };
+  const duplicateLesson = (index: number) => {
+    const original = chapter.lessons[index]!;
+    const id = uniqueId(
+      `${original.id}-copy`,
+      chapter.lessons.map((item) => item.id),
+    );
+    editChapter((next) => {
+      const copy = clone(original);
+      copy.id = id;
+      copy.title += " copy";
+      copy.activities.forEach((activity, activityIndex) => {
+        activity.id = `${id}-${activity.type}-${activityIndex + 1}`;
+      });
+      next.lessons.splice(index + 1, 0, copy);
+    });
+    setLessonIndex(index + 1);
+  };
+  const addActivity = (type: ActivityType) =>
+    editLesson((next) =>
+      next.activities.push({
+        id: uniqueId(
+          `${lesson.id}-${type}`,
+          next.activities.map((item) => item.id),
+        ),
+        type,
+        title: type === "notes" ? "Learn" : type === "practice" ? "Practice" : "Assessment",
+        content: type === "notes" ? "Write content here." : "",
+        passingScore: type === "assessment" ? 0.7 : undefined,
+        questions: [],
+      }),
+    );
+  const addQuestion = (activityIndex: number, type: QuestionType) =>
+    editLesson((next) => {
+      const all = next.activities.flatMap((item) => item.questions.map((question) => question.id));
+      next.activities[activityIndex]!.questions.push(newQuestion(type, all));
+    });
+  const addMedia = async (files: FileList | null, cover = false) => {
+    if (!files) return;
+    const additions = await Promise.all(
+      [...files].map(async (file) => ({
+        path: `assets/${slug(file.name.replace(/\.[^.]+$/, ""))}.${file.name.split(".").pop()?.toLowerCase()}`,
+        data: new Uint8Array(await file.arrayBuffer()),
+        type: file.type,
+      })),
+    );
+    edit((next) => {
+      next.media.push(...additions);
+      if (cover && additions[0]) next.cover = additions[0].path;
+    });
+  };
   return (
-    <div className="page">
+    <div className="page studio stack-lg">
       <header className="page-header">
-        <p className="eyebrow">Studio</p>
+        <p className="eyebrow">Creator studio · {status}</p>
         <h1>Create a course.</h1>
-        <p className="lede">Build valid MCF source and keep it in this browser.</p>
+        <p className="lede">Structured editing produces portable MCF 1.0 source as you work.</p>
+        <div className="actions">
+          <Link className="button" to={`/courses/${draft.id}/learn`}>
+            Learner preview
+          </Link>
+          <button
+            className="button secondary"
+            onClick={() =>
+              void exportZip(source.files).then((blob) =>
+                downloadBlob(blob, `${draft.id}-source.zip`),
+              )
+            }
+          >
+            Export MCF ZIP
+          </button>
+        </div>
       </header>
+      <section className="studio-grid">
+        <aside className="studio-outline card">
+          <h2>Structure</h2>
+          <div className="chapter-tabs">
+            {draft.chapters.map((item, index) => (
+              <button
+                className={index === chapterIndex ? "current" : ""}
+                key={item.id}
+                onClick={() => {
+                  setChapterIndex(index);
+                  setLessonIndex(0);
+                }}
+              >
+                {item.title}
+              </button>
+            ))}
+          </div>
+          <button className="text-button" onClick={addChapter}>
+            + Chapter
+          </button>
+          <ol>
+            {chapter.lessons.map((item, index) => (
+              <li
+                draggable
+                onDragStart={() => setDragged(index)}
+                onDragOver={(event) => event.preventDefault()}
+                onDrop={() => {
+                  if (dragged === undefined || dragged === index) return;
+                  editChapter((next) => {
+                    const [moved] = next.lessons.splice(dragged, 1);
+                    next.lessons.splice(index, 0, moved!);
+                  });
+                  setLessonIndex(index);
+                  setDragged(undefined);
+                }}
+                key={item.id}
+              >
+                <button
+                  className={index === lessonIndex ? "current" : ""}
+                  onClick={() => setLessonIndex(index)}
+                >
+                  {item.title}
+                </button>
+                <button
+                  aria-label={`Duplicate ${item.title}`}
+                  onClick={() => duplicateLesson(index)}
+                >
+                  ⧉
+                </button>
+              </li>
+            ))}
+          </ol>
+          <button className="text-button" onClick={addLesson}>
+            + Lesson
+          </button>
+        </aside>
+        <div className="studio-editor stack">
+          <section className="card form-grid">
+            <h2>Course details</h2>
+            <label>
+              Title
+              <input
+                value={draft.title}
+                onChange={(event) =>
+                  edit((next) => {
+                    next.title = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label>
+              Course ID
+              <input
+                pattern="[a-z][a-z0-9._-]*"
+                value={draft.id}
+                onChange={(event) =>
+                  edit((next) => {
+                    next.id = slug(event.target.value);
+                  })
+                }
+              />
+            </label>
+            <label className="wide">
+              Description
+              <textarea
+                value={draft.description}
+                onChange={(event) =>
+                  edit((next) => {
+                    next.description = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label>
+              Author
+              <input
+                value={draft.author}
+                onChange={(event) =>
+                  edit((next) => {
+                    next.author = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label>
+              Language
+              <input
+                value={draft.language}
+                onChange={(event) =>
+                  edit((next) => {
+                    next.language = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label>
+              Version
+              <input
+                value={draft.version}
+                onChange={(event) =>
+                  edit((next) => {
+                    next.version = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label>
+              License
+              <input
+                value={draft.license}
+                onChange={(event) =>
+                  edit((next) => {
+                    next.license = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label className="wide">
+              Cover image
+              <input
+                accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                type="file"
+                onChange={(event) => void addMedia(event.target.files, true)}
+              />
+            </label>
+          </section>
+          <section className="card form-grid">
+            <h2>Chapter</h2>
+            <label>
+              Title
+              <input
+                value={chapter.title}
+                onChange={(event) =>
+                  editChapter((next) => {
+                    next.title = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label>
+              ID
+              <input
+                value={chapter.id}
+                onChange={(event) =>
+                  editChapter((next) => {
+                    next.id = slug(event.target.value);
+                  })
+                }
+              />
+            </label>
+            <label className="wide">
+              Description
+              <input
+                value={chapter.description}
+                onChange={(event) =>
+                  editChapter((next) => {
+                    next.description = event.target.value;
+                  })
+                }
+              />
+            </label>
+          </section>
+          <section className="card form-grid">
+            <h2>Lesson</h2>
+            <label>
+              Title
+              <input
+                value={lesson.title}
+                onChange={(event) =>
+                  editLesson((next) => {
+                    next.title = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label>
+              ID
+              <input
+                value={lesson.id}
+                onChange={(event) =>
+                  editLesson((next) => {
+                    next.id = slug(event.target.value);
+                  })
+                }
+              />
+            </label>
+            <label className="wide">
+              Description
+              <input
+                value={lesson.description}
+                onChange={(event) =>
+                  editLesson((next) => {
+                    next.description = event.target.value;
+                  })
+                }
+              />
+            </label>
+            <label className="wide">
+              Attach local media
+              <input
+                multiple
+                accept="image/*,audio/*,video/*"
+                type="file"
+                onChange={(event) => void addMedia(event.target.files)}
+              />
+            </label>
+          </section>
+          {lesson.activities.map((activity, activityIndex) => (
+            <ActivityEditor
+              activity={activity}
+              key={activity.id}
+              onEdit={(change) => editLesson((next) => change(next.activities[activityIndex]!))}
+              onDuplicate={() =>
+                editLesson((next) => {
+                  const copy = clone(next.activities[activityIndex]!);
+                  copy.id = uniqueId(
+                    `${copy.id}-copy`,
+                    next.activities.map((item) => item.id),
+                  );
+                  next.activities.splice(activityIndex + 1, 0, copy);
+                })
+              }
+              onAddQuestion={(type) => addQuestion(activityIndex, type)}
+            />
+          ))}
+          <div className="actions">
+            <button className="button secondary" onClick={() => addActivity("notes")}>
+              + Notes
+            </button>
+            <button className="button secondary" onClick={() => addActivity("practice")}>
+              + Practice
+            </button>
+            <button className="button secondary" onClick={() => addActivity("assessment")}>
+              + Assessment
+            </button>
+          </div>
+          <details className="card">
+            <summary>MCF source preview</summary>
+            <pre className="source-preview">
+              {new TextDecoder().decode(
+                source.files.find((file) => file.path === "manifest.yaml")?.data,
+              )}
+            </pre>
+          </details>
+        </div>
+      </section>
     </div>
+  );
+}
+
+function ActivityEditor({
+  activity,
+  onEdit,
+  onDuplicate,
+  onAddQuestion,
+}: {
+  activity: DraftActivity;
+  onEdit: (change: (activity: DraftActivity) => void) => void;
+  onDuplicate: () => void;
+  onAddQuestion: (type: QuestionType) => void;
+}) {
+  const [type, setType] = useState<QuestionType>("multiple_choice");
+  return (
+    <section className="activity-editor card stack">
+      <div className="section-row">
+        <div>
+          <p className="activity-type">{activity.type}</p>
+          <h2>{activity.title}</h2>
+        </div>
+        <button className="text-button" onClick={onDuplicate}>
+          Duplicate activity
+        </button>
+      </div>
+      <div className="form-grid">
+        <label>
+          Title
+          <input
+            value={activity.title}
+            onChange={(event) =>
+              onEdit((next) => {
+                next.title = event.target.value;
+              })
+            }
+          />
+        </label>
+        <label>
+          ID
+          <input
+            value={activity.id}
+            onChange={(event) =>
+              onEdit((next) => {
+                next.id = slug(event.target.value);
+              })
+            }
+          />
+        </label>
+        {activity.type === "assessment" ? (
+          <label>
+            Passing score
+            <input
+              min="0"
+              max="1"
+              step="0.05"
+              type="number"
+              value={activity.passingScore ?? 0.7}
+              onChange={(event) =>
+                onEdit((next) => {
+                  next.passingScore = Number(event.target.value);
+                })
+              }
+            />
+          </label>
+        ) : null}
+        <label className="wide">
+          Markdown content
+          <textarea
+            rows={10}
+            value={activity.content}
+            onChange={(event) =>
+              onEdit((next) => {
+                next.content = event.target.value;
+              })
+            }
+          />
+        </label>
+      </div>
+      {activity.questions.map((question, index) => (
+        <div className="question-editor" key={question.id}>
+          <div className="section-row">
+            <strong>{question.type.replaceAll("_", " ")}</strong>
+            <button
+              className="text-button"
+              onClick={() =>
+                onEdit((next) => {
+                  const copy = clone(question);
+                  copy.id = uniqueId(
+                    `${copy.id}-copy`,
+                    next.questions.map((item) => item.id),
+                  );
+                  next.questions.splice(index + 1, 0, copy);
+                })
+              }
+            >
+              Duplicate question
+            </button>
+          </div>
+          <label>
+            Prompt
+            <textarea
+              value={question.prompt}
+              onChange={(event) =>
+                onEdit((next) => {
+                  next.questions[index]!.prompt = event.target.value;
+                })
+              }
+            />
+          </label>
+          <label>
+            ID
+            <input
+              value={question.id}
+              onChange={(event) =>
+                onEdit((next) => {
+                  next.questions[index]!.id = slug(event.target.value);
+                })
+              }
+            />
+          </label>
+          {question.options.length ? (
+            <label>
+              Options (one per line)
+              <textarea
+                value={question.options.map((option) => `${option.id}: ${option.text}`).join("\n")}
+                onChange={(event) =>
+                  onEdit((next) => {
+                    next.questions[index]!.options = event.target.value
+                      .split("\n")
+                      .filter(Boolean)
+                      .map((line, optionIndex) => {
+                        const [rawId, ...words] = line.split(":");
+                        return {
+                          id: slug(rawId || `option-${optionIndex + 1}`),
+                          text: words.join(":").trim() || rawId || "Option",
+                        };
+                      });
+                  })
+                }
+              />
+            </label>
+          ) : null}
+          {question.type !== "essay" ? (
+            <label>
+              Answer
+              <input
+                value={
+                  Array.isArray(question.answer)
+                    ? question.answer.join(",")
+                    : String(question.answer ?? "")
+                }
+                onChange={(event) =>
+                  onEdit((next) => {
+                    const current = next.questions[index]!;
+                    current.answer =
+                      current.type === "multiple_select"
+                        ? event.target.value.split(",").map((value) => slug(value.trim()))
+                        : event.target.value;
+                  })
+                }
+              />
+            </label>
+          ) : (
+            <label>
+              Minimum words
+              <input
+                min="1"
+                type="number"
+                value={question.minimumWords ?? 20}
+                onChange={(event) =>
+                  onEdit((next) => {
+                    next.questions[index]!.minimumWords = Number(event.target.value);
+                  })
+                }
+              />
+            </label>
+          )}
+          <label>
+            Hint
+            <input
+              value={question.hint}
+              onChange={(event) =>
+                onEdit((next) => {
+                  next.questions[index]!.hint = event.target.value;
+                })
+              }
+            />
+          </label>
+          <label>
+            Explanation
+            <textarea
+              value={question.explanation}
+              onChange={(event) =>
+                onEdit((next) => {
+                  next.questions[index]!.explanation = event.target.value;
+                })
+              }
+            />
+          </label>
+        </div>
+      ))}
+      <div className="actions">
+        <select
+          aria-label="Question type"
+          value={type}
+          onChange={(event) => setType(event.target.value as QuestionType)}
+        >
+          {questionTypes.map((item) => (
+            <option value={item} key={item}>
+              {item.replaceAll("_", " ")}
+            </option>
+          ))}
+        </select>
+        <button className="button secondary" onClick={() => onAddQuestion(type)}>
+          + Question
+        </button>
+      </div>
+    </section>
   );
 }

@@ -11,6 +11,13 @@ Last updated: 2026-07-19
   generator, and versioned IndexedDB stores were implemented.
 - Five local course packages were preserved. The four newest ZIP candidates match the corresponding
   `mcf-npm/examples` source trees.
+- The browser virtual filesystem, MCF parser, rich renderer, six question controls, assessment
+  grading, deterministic essay completion, course reader, and IndexedDB progress were implemented.
+- The structured authoring studio autosaves to IndexedDB and generates MCF source with chapters,
+  ordered lessons, activities, question builders, local media, preview, and ZIP export.
+- ZIP/folder import, hostile-path and resource limits, Web Worker validation/compilation, React
+  preview, source export, compiled multi-file export, local library, and PWA update/install behavior
+  were implemented.
 
 ## Architecture
 
@@ -23,11 +30,16 @@ Last updated: 2026-07-19
 - `npm run content:build`: passed for all five course bundles.
 - `npm run typecheck`: passed.
 - `npm run lint`: passed with zero warnings.
+- `npm test`: passed, 4 files and 11 tests including all five bundled courses.
+- `npm run build`: passed; static export and PWA service worker generated.
 
 ## Known limitations
 
-- Reader, authoring, browser compilation/export, and end-to-end tests remain.
+- The standalone compiled ZIP intentionally presents safe source content and navigation; expanding
+  it to the full in-app interaction model remains before final handoff.
+- Browser end-to-end and direct static-route verification remain.
 
 ## Next task
 
-Implement the browser MCF parser, reader, and local progress.
+Harden validation and ZIP handling, complete exported-reader interactions, then run browser and
+static deployment verification.

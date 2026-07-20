@@ -1,7 +1,7 @@
 ---
 id: magazines-and-audiences
 title: "Magazines and Audiences"
-description: "A short lesson in Edgar Allan Poe: Sound, Shadow, and Story."
+description: "A researched lesson in Edgar Allan Poe: Sound, Shadow, and Story."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Magazines and Audiences
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_2_retouched_and_transparent_bg.png)
+![Lesson image for Magazines and Audiences](https://commons.wikimedia.org/wiki/Special:FilePath/Graham%27s_Magazine_January_1852.jpg)
 
 Nineteenth-century magazines circulated poems, criticism, reviews, and serialized fiction. Their speed and competition shaped Poe’s sharp critical voice.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Poe’s professional world was built around periodicals. Magazines needed a steady supply of poems, stories, reviews, and editorial material, but payment and ownership could be uncertain. A writer had to think about audience, length, deadlines, typography, and the reputation of the publication. Poe’s criticism therefore belongs beside his creative work: he was participating in arguments about what American literature should value and how writers should be judged.
+
+The nineteenth-century magazine also changed reading itself. A poem could reach strangers in many cities, be discussed in newspapers, and be reprinted without the stable author-reader relationship we imagine today. A famous work such as “The Raven” became a cultural event partly because print networks amplified it. Yet popularity and literary quality are not identical. A text can be widely circulated, commercially useful, and artistically complicated at the same time.
+
+The periodical image in this lesson helps us remember that literature has infrastructure. Writers need printers, editors, distributors, readers, and money. Studying that infrastructure makes Poe less like an isolated genius and more like a professional working inside a competitive media system.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://www.loc.gov/item/today-in-history/january-19/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: magazines-and-audiences-check
 type: short_answer
-prompt: Where did much of Poe’s work appear?
-answer: Magazines
-hint: Return a short exact answer.
-explanation: Magazines
+prompt: "Where did much of Poe’s work appear?"
+answer: "Magazines"
+hint: "Return a short exact answer."
+explanation: "Magazines"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: magazines-and-audiences-assessment-check
 type: true_false
-prompt: Periodicals connected writers to large audiences before modern mass media.
+prompt: "Periodicals connected writers to large audiences before modern mass media."
 answer: false
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```

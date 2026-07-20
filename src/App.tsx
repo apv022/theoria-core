@@ -3,6 +3,7 @@ import { Link, NavLink, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { DiscoverPage } from "./pages/DiscoverPage";
 import { AboutPage } from "./pages/AboutPage";
+import { PwaStatus } from "./components/PwaStatus";
 
 const CoursePage = lazy(() => import("./pages/CoursePage"));
 const ReaderPage = lazy(() => import("./pages/ReaderPage"));
@@ -83,6 +84,7 @@ export function App() {
         <span>Built on the open MCF 1.0 format.</span>
         <span>Your work stays in this browser.</span>
       </footer>
+      <PwaStatus />
     </div>
   );
 }

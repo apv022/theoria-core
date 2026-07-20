@@ -1,7 +1,7 @@
 ---
 id: gothic-pressure
 title: "Gothic Pressure"
-description: "A short lesson in Edgar Allan Poe: Sound, Shadow, and Story."
+description: "A researched lesson in Edgar Allan Poe: Sound, Shadow, and Story."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0
@@ -15,11 +15,17 @@ title: Learn
 
 # Gothic Pressure
 
-![Historical or conceptual image for this course](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_2_retouched_and_transparent_bg.png)
+![Lesson image for Gothic Pressure](https://commons.wikimedia.org/wiki/Special:FilePath/Poe%27s_house_in_Baltimore.jpg)
 
 Gothic fiction often uses confinement, secrecy, decay, and psychological pressure. In Poe, the frightening setting often mirrors a mind under strain.
 
-> **Look closely.** Images are evidence and invitations: ask what they show, what they leave out, and who made or preserved them.
+Gothic fiction creates fear through atmosphere, but atmosphere is not decoration alone. Confinement, darkness, decay, secrecy, family history, and uncertain perception turn setting into a pressure on characters. Poe frequently makes architecture feel psychological: rooms, vaults, houses, and corridors seem to narrow the range of possible action. The external world becomes an echo of obsession or dread.
+
+The Gothic also tests the boundary between explanation and mystery. A story may offer a rational account, a supernatural suggestion, or both at once. Readers are pushed to decide how much certainty they require. Poe’s own phrase that terror is “of the soul” points toward this inward dimension, but we should also notice the social and historical conditions around the genre: industrial change, urban anonymity, scientific debate, and anxieties about inheritance and identity.
+
+Use the image as a mood object, then resist stopping at mood. Describe concrete visual choices—stone, shadow, enclosure, texture—and connect them to the story’s narrative pressure. Good analysis moves from atmosphere to mechanism.
+
+> **Source and image note.** This lesson was prepared from [the linked research source](https://poemuseum.org/wp-content/uploads/Educator-Resource-Packet.pdf). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
 
 :::mcf-end
 
@@ -32,10 +38,10 @@ title: Practice
 ```mcf-question
 id: gothic-pressure-check
 type: short_answer
-prompt: Which is a common Gothic element?
-answer: Secrecy
-hint: Return a short exact answer.
-explanation: Secrecy
+prompt: "Which is a common Gothic element?"
+answer: "Secrecy"
+hint: "Return a short exact answer."
+explanation: "Secrecy"
 points: 1
 required: true
 ```
@@ -52,10 +58,10 @@ passing_score: 1
 ```mcf-question
 id: gothic-pressure-assessment-check
 type: true_false
-prompt: Gothic writing turns uncertainty into atmosphere.
+prompt: "Gothic writing turns uncertainty into atmosphere."
 answer: false
-hint: Review the lesson summary.
-explanation: The lesson explains this claim.
+hint: "Review the lesson summary."
+explanation: "The lesson explains this claim."
 points: 1
 required: true
 ```
