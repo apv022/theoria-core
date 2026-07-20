@@ -4,6 +4,7 @@ import { compileCourse } from "../src/mcf/compiler";
 import { parseCourseFiles } from "../src/mcf/parser";
 import { VirtualCourseFiles } from "../src/mcf/vfs";
 import type { QuestionType } from "../src/types";
+import { withoutDuplicateLessonHeading } from "../src/mcf/render";
 
 describe("authoring and compilation", () => {
   it("generates valid source containing all six question types", () => {
@@ -54,5 +55,27 @@ describe("authoring and compilation", () => {
     );
     expect(player).toContain("multiple_select");
     expect(player).toContain("assessment-submit");
+  });
+  it("removes only a repeated structured lesson heading", () => {
+    expect(withoutDuplicateLessonHeading("# Welcome\n\nBody", "Welcome")).toBe("Body");
+    expect(withoutDuplicateLessonHeading("# Different\n\nBody", "Welcome")).toContain(
+      "# Different",
+    );
+  });
+  it("preserves local image bytes and portable paths in compiled output", () => {
+    const draft = initialDraft();
+    const bytes = new Uint8Array([137, 80, 78, 71, 1, 2, 3]);
+    draft.media.push({ path: "assets/lesson image.png", data: bytes, type: "image/png" });
+    draft.chapters[0]!.lessons[0]!.activities[0]!.content =
+      "# Welcome\n\n![Diagram](../../../assets/lesson image.png)";
+    const result = compileCourse(generateSource(draft));
+    const asset = result.files?.find((file) => file.path === "assets/lesson image.png");
+    const html = new TextDecoder().decode(
+      result.files?.find((file) => file.path === "index.html")?.data,
+    );
+    expect(asset?.data).toEqual(bytes);
+    expect(html).toContain("assets/lesson image.png");
+    expect(html).not.toMatch(/blob:|localhost/);
+    expect(html.match(/<h2>Welcome<\/h2>/g)).toHaveLength(1);
   });
 });

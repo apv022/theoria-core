@@ -2,7 +2,7 @@ export function AboutPage() {
   return (
     <article className="page prose stack">
       <p className="eyebrow">About</p>
-      <h1>Courses that remain portable.</h1>
+      <h1>Portable courses, structured clearly</h1>
       <p className="lede">
         Theoria Core is a fully client-side learning and authoring environment for MCF 1.0.
       </p>
@@ -11,7 +11,7 @@ export function AboutPage() {
         MCF is an open, human-readable course source format built from YAML manifests and Markdown
         lessons. The declared chapter and lesson order is authoritative.
       </p>
-      <h2>Your privacy</h2>
+      <h2>Browser storage</h2>
       <p>
         There are no accounts or analytics here. Your progress and authored courses stay in this
         browser unless you export them.

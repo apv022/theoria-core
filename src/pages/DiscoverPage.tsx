@@ -22,8 +22,8 @@ export function DiscoverPage() {
     <div className="page stack-lg">
       <header className="page-header">
         <p className="eyebrow">Course library</p>
-        <h1>Follow your curiosity.</h1>
-        <p className="lede">Five complete MCF courses, available without an account.</p>
+        <h1>Discover courses</h1>
+        <p className="lede">Explore five complete courses built with MCF 1.0.</p>
       </header>
       <div className="filters card">
         <label>

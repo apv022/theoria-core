@@ -17,13 +17,15 @@ export const DB_NAME = "theoria-core";
 export const DB_VERSION = 3;
 
 function diagnostic(step: string, detail: Record<string, unknown> = {}) {
-  if (import.meta.env.DEV)
-    console.error("[Theoria storage]", {
+  if (import.meta.env.DEV) {
+    const method = /failed|blocked/.test(step) ? console.error : console.info;
+    method("[Theoria storage]", {
       database: DB_NAME,
       targetVersion: DB_VERSION,
       step,
       ...detail,
     });
+  }
 }
 
 const database = () =>

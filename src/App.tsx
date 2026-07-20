@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage";
 import { DiscoverPage } from "./pages/DiscoverPage";
 import { AboutPage } from "./pages/AboutPage";
 import { PwaStatus } from "./components/PwaStatus";
+import { ScrollManager } from "./components/ScrollManager";
 
 const CoursePage = lazy(() => import("./pages/CoursePage"));
 const ReaderPage = lazy(() => import("./pages/ReaderPage"));
@@ -40,8 +41,15 @@ function ThemeButton() {
 }
 
 export function App() {
+  const [storageBlocked, setStorageBlocked] = useState(false);
+  useEffect(() => {
+    const blocked = () => setStorageBlocked(true);
+    window.addEventListener("theoria-storage-blocked", blocked);
+    return () => window.removeEventListener("theoria-storage-blocked", blocked);
+  }, []);
   return (
     <div className="app-shell">
+      <ScrollManager />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -59,7 +67,12 @@ export function App() {
         <ThemeButton />
       </header>
       <main id="main">
-        <Suspense fallback={<div className="status-card">Opening your workspace…</div>}>
+        {storageBlocked ? (
+          <div className="notice" role="alert">
+            A newer storage version is waiting. Close other Theoria tabs, then reload this page.
+          </div>
+        ) : null}
+        <Suspense fallback={<div className="status-card">Loading page…</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/discover" element={<DiscoverPage />} />
@@ -86,7 +99,7 @@ export function App() {
       </main>
       <footer>
         <span>Built on the open MCF 1.0 format.</span>
-        <span>Your work stays in this browser.</span>
+        <span>Explore, create, and export portable courses.</span>
       </footer>
       <PwaStatus />
     </div>

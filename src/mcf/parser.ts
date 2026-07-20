@@ -360,9 +360,11 @@ export function parseCourseFiles(vfs: VirtualCourseFiles): {
         ...(question.options ?? []).map((option) => option.text),
       ]),
     ]))
-      for (const match of content.matchAll(
-        /!?\[[^\]]*\]\(([^\s)]+)|@\[(?:audio|video)\]\(([^\s)]+)/g,
-      ))
-        checkReference(match[1] ?? match[2] ?? "", lesson);
+      for (const match of content.matchAll(/(?:!?\[[^\]]*\]|@\[(?:audio|video)\])\(([^)]+)\)/g)) {
+        let reference = match[1]!.trim().replace(/\s+(?:"[^"]*"|'[^']*')$/, "");
+        if (reference.startsWith("<") && reference.endsWith(">"))
+          reference = reference.slice(1, -1);
+        checkReference(reference, lesson);
+      }
   return issues.some((issue) => issue.severity === "error") ? { issues } : { course, issues };
 }

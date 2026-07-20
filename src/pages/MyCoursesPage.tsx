@@ -21,11 +21,10 @@ export default function MyCoursesPage() {
   return (
     <div className="page stack-lg">
       <header className="page-header">
-        <p className="eyebrow">Browser library</p>
+        <p className="eyebrow">Course projects</p>
         <h1>My Courses</h1>
         <p className="lede">
-          These courses exist only in this browser. Export source before clearing site data or
-          moving devices.
+          Create, edit, preview, and export authored or imported course projects.
         </p>
       </header>
       {size(usage.usage) ? (
@@ -75,14 +74,14 @@ export default function MyCoursesPage() {
         </div>
       ) : (
         <div className="empty card">
-          <h2>No local courses yet</h2>
-          <p>Create a course or import MCF source. Bundled courses remain in Discover.</p>
+          <h2>No course projects yet</h2>
+          <p>Create a course or import MCF source to begin.</p>
           <div className="actions">
             <Link className="button" to="/create">
-              Create
+              Create course
             </Link>
             <Link className="button secondary" to="/compile">
-              Import
+              Import course
             </Link>
           </div>
         </div>

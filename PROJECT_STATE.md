@@ -89,3 +89,20 @@ Last updated: 2026-07-19
 Connect `/home/apv/theoria-core` to the intended GitHub `theoria` repository using the documented
 commands, enable GitHub Pages Actions, or configure an equivalent Render Static Site. No code phase
 is required before deployment.
+
+## Product-quality audit and polish
+
+- Completed work: audited all routes and core states; fixed duplicate lesson titles, route scroll
+  restoration, course-cover and attached-media previews, practice completion styling, router-safe
+  enrollment navigation, media paths containing spaces, mobile card overlap, mobile navigation,
+  terminology, loading copy, and blocked-storage messaging.
+- Verification: formatting, lint, strict typecheck, 16 unit/integration tests, production build,
+  static-output verification, three Chromium development journeys, three Firefox development
+  journeys, three mobile journeys, and six Chromium/Firefox production-preview journeys passed.
+- Architecture decisions: source content remains untouched when suppressing redundant display
+  headings; object URLs remain memory-only and are revoked; PUSH/REPLACE navigation resets document
+  scroll while POP and hash navigation retain browser intent.
+- Known limitation: plain-HTTP LAN and installed Brave testing require the user's network/browser;
+  these are recorded in `docs/product-quality-audit.md` rather than inferred.
+- Exact next phase: perform the manual LAN/Brave matrix, then connect and deploy the verified static
+  build when a repository/host is selected.

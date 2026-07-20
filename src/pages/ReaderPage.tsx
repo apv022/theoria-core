@@ -1,12 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { QuestionView } from "../components/QuestionView";
+import { CompletionStatus } from "../components/CompletionStatus";
 import { completion, evaluateQuestion, hasResponse } from "../mcf/grading";
 import { parseCourseFiles } from "../mcf/parser";
 import { AssetUrls, richHtml } from "../mcf/render";
 import { VirtualCourseFiles } from "../mcf/vfs";
 import { loadBundledSource } from "../lib/catalog";
-import { localCourses, progressStore } from "../lib/storage";
+import { enrollmentStore, localCourses, progressStore } from "../lib/storage";
 import type { Activity, CourseProgress, CourseSource, ParsedCourse } from "../types";
 
 const blankProgress = (courseId: string): CourseProgress => ({
@@ -25,6 +26,7 @@ export default function ReaderPage() {
   const [course, setCourse] = useState<ParsedCourse>();
   const [failure, setFailure] = useState<string>();
   const [progress, setProgress] = useState<CourseProgress>(() => blankProgress(id));
+  const lessonContent = useRef<HTMLElement>(null);
   useEffect(() => {
     void (async () => {
       try {
@@ -39,6 +41,13 @@ export default function ReaderPage() {
           completedPractices: saved.completedPractices ?? [],
           currentLessonId: saved.currentLessonId ?? parsed.course.chapters[0]?.lessons[0]?.id,
         });
+        const enrollment = await enrollmentStore.get(id);
+        if (enrollment)
+          await enrollmentStore.start({
+            ...enrollment,
+            lastLessonId: saved.currentLessonId ?? parsed.course.chapters[0]?.lessons[0]?.id,
+            lastOpenedAt: new Date().toISOString(),
+          });
       } catch (error) {
         setFailure((error as Error).message);
       }
@@ -54,6 +63,9 @@ export default function ReaderPage() {
       : lessons[0]?.id;
   const lesson = lessons.find((item) => item.id === selectedId);
   const index = lessons.findIndex((item) => item.id === selectedId);
+  useEffect(() => {
+    if (selectedId) lessonContent.current?.scrollIntoView({ block: "start" });
+  }, [selectedId]);
   const selectedQuestions = (activity: Activity) => {
     if (!activity.randomize && !activity.questionPoolSize) return activity.questions;
     const poolKey = `${lesson?.id ?? "course"}:${activity.id}`;
@@ -67,18 +79,27 @@ export default function ReaderPage() {
       activity.questions.find((question) => question.id === questionId)!,
     );
   };
+  const practiceComplete = (activity: Activity, state: CourseProgress) => {
+    const questions = selectedQuestions(activity);
+    const required = questions.some((question) => question.required)
+      ? questions.filter((question) => question.required)
+      : questions;
+    return (
+      required.length > 0 &&
+      required.every(
+        (question) =>
+          completion(question, state.responses[`${lesson?.id}:${activity.id}:${question.id}`], true)
+            .complete,
+      )
+    );
+  };
   const save = (next: CourseProgress) => {
     if (lesson) {
       const lessonComplete = lesson.activities.every((activity) => {
         const activityKey = `${lesson.id}:${activity.id}`;
         if (activity.type === "notes") return next.completedNotes.includes(activityKey);
         if (activity.type === "assessment") return Boolean(next.assessments[activityKey]);
-        const done = selectedQuestions(activity)
-          .filter((question) => question.required)
-          .every(
-            (question) =>
-              completion(question, next.responses[`${activityKey}:${question.id}`], true).complete,
-          );
+        const done = practiceComplete(activity, next);
         const practices = next.completedPractices ?? [];
         if (done) next.completedPractices = [...new Set([...practices, activityKey])];
         else next.completedPractices = practices.filter((key) => key !== activityKey);
@@ -91,6 +112,15 @@ export default function ReaderPage() {
     next.updatedAt = new Date().toISOString();
     setProgress(next);
     void progressStore.put(next);
+    void enrollmentStore.get(next.courseId).then(
+      (enrollment) =>
+        enrollment &&
+        enrollmentStore.start({
+          ...enrollment,
+          lastLessonId: next.currentLessonId,
+          lastOpenedAt: next.updatedAt,
+        }),
+    );
   };
   const setResponse = (key: string, value: unknown) =>
     save({ ...progress, responses: { ...progress.responses, [key]: value } });
@@ -190,7 +220,7 @@ export default function ReaderPage() {
           Reset progress
         </button>
       </aside>
-      <article className="lesson">
+      <article className="lesson" ref={lessonContent}>
         <header>
           <p className="eyebrow">
             Lesson {index + 1} of {lessons.length}
@@ -202,26 +232,20 @@ export default function ReaderPage() {
           const activityKey = `${lesson.id}:${activity.id}`;
           const notesDone = progress.completedNotes.includes(activityKey);
           const assessment = progress.assessments[activityKey];
+          const activityDone =
+            activity.type === "notes"
+              ? notesDone
+              : activity.type === "practice"
+                ? practiceComplete(activity, progress)
+                : Boolean(assessment?.passed);
           return (
             <section
-              className={`activity card ${assessment?.passed || notesDone ? "complete" : ""}`}
+              className={`activity card ${activityDone ? "complete" : ""}`}
               key={activity.id}
             >
               <div className="activity-heading">
-                <span className="activity-type">
-                  {activity.type}
-                  {(
-                    activity.type === "notes"
-                      ? progress.completedNotes.includes(`${lesson.id}:${activity.id}`)
-                      : activity.type === "practice"
-                        ? (progress.completedPractices ?? []).includes(
-                            `${lesson.id}:${activity.id}`,
-                          )
-                        : Boolean(progress.assessments[`${lesson.id}:${activity.id}`])
-                  )
-                    ? " · Complete ✓"
-                    : ""}
-                </span>
+                <span className="activity-type">{activity.type}</span>
+                <CompletionStatus complete={activityDone} />
                 <h2>{activity.title ?? activity.type}</h2>
               </div>
               <div

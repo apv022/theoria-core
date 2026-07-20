@@ -6,11 +6,11 @@ export function HomePage() {
   return (
     <div className="page stack-lg">
       <section className="hero">
-        <p className="eyebrow">Learning, kept close</p>
-        <h1>Read deeply. Build openly.</h1>
+        <p className="eyebrow">MCF learning and authoring</p>
+        <h1>Explore, study, and create.</h1>
         <p className="lede">
-          Theoria is a private-by-design course reader and studio. Learn from MCF courses, make your
-          own, and compile them—all in your browser.
+          Read complete courses, build structured lessons, validate MCF source, and export portable
+          course packages.
         </p>
         <div className="actions">
           <Link className="button" to="/discover">
@@ -26,7 +26,7 @@ export function HomePage() {
       </section>
       <section className="stack">
         <div className="section-heading">
-          <p className="eyebrow">Begin somewhere</p>
+          <p className="eyebrow">Learning library</p>
           <h2>Featured courses</h2>
         </div>
         <div className="card-grid">
@@ -39,8 +39,8 @@ export function HomePage() {
       </section>
       <section className="editorial-grid">
         <div>
-          <p className="eyebrow">Local first</p>
-          <h2>No account between you and an idea.</h2>
+          <p className="eyebrow">Portable source</p>
+          <h2>Keep your course projects reusable.</h2>
         </div>
         <p>
           Progress, authored courses, and imported media remain in IndexedDB on this device. Export

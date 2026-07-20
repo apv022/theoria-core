@@ -270,6 +270,8 @@ function escapeHtml(value: string) {
   );
 }
 function safeRich(source: string) {
+  // The generated reader already renders the structured lesson title.
+  source = source.replace(/^\s*#\s+[^\n]+\n+/, "");
   const math: Array<{ value: string; display: boolean }> = [];
   const media: string[] = [];
   const mathToken = "THEORIAEXPORTMATH";

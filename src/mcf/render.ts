@@ -28,6 +28,14 @@ export class AssetUrls {
   }
 }
 
+export function withoutDuplicateLessonHeading(source: string, lessonTitle: string) {
+  const lines = source.replace(/^\s+/, "").split("\n");
+  const heading = lines[0]?.match(/^#\s+(.+?)\s*#?\s*$/)?.[1];
+  return heading?.localeCompare(lessonTitle, undefined, { sensitivity: "base" }) === 0
+    ? lines.slice(1).join("\n").replace(/^\s+/, "")
+    : source;
+}
+
 function youtubeId(source: string) {
   if (/^youtube:[A-Za-z0-9_-]+$/.test(source)) return source.slice(8);
   try {
@@ -47,7 +55,7 @@ function youtubeId(source: string) {
 export function richHtml(source: string, lesson: Lesson, assets: AssetUrls) {
   const expressions: Array<{ value: string; display: boolean }> = [];
   const token = "THEORIAMATH";
-  let input = source
+  let input = withoutDuplicateLessonHeading(source, lesson.title)
     .replace(
       /\$\$([\s\S]*?)\$\$/g,
       (_match, value: string) =>
@@ -67,9 +75,9 @@ export function richHtml(source: string, lesson: Lesson, assets: AssetUrls) {
     },
   );
   input = input.replace(
-    /(!\[[^\]]*\]\()([^\s)]+)([^)]*\))/g,
-    (_all, open: string, reference: string, close: string) =>
-      `${open}${assets.resolve(reference, lesson)}${close}`,
+    /(!\[[^\]]*\]\()(.+?)(\s+(?:"[^"]*"|'[^']*'))?\)/g,
+    (_all, open: string, reference: string, title: string | undefined) =>
+      `${open}${assets.resolve(reference.trim(), lesson)}${title ?? ""})`,
   );
   const rendered = (marked.parse(input, { async: false }) as string).replace(
     new RegExp(`${token}(\\d+)END`, "g"),

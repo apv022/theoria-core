@@ -13,7 +13,7 @@ import {
 } from "../authoring/model";
 import { localCourses, settingsStore } from "../lib/storage";
 import { downloadBlob, exportZip } from "../mcf/zip";
-import type { ActivityType, QuestionType } from "../types";
+import type { ActivityType, QuestionType, VirtualFile } from "../types";
 
 const questionTypes: QuestionType[] = [
   "multiple_choice",
@@ -169,7 +169,7 @@ export default function CreatePage() {
     <div className="page studio stack-lg">
       <header className="page-header">
         <p className="eyebrow">Creator studio · {status}</p>
-        <h1>Create a course.</h1>
+        <h1>Create a course</h1>
         <p className="lede">Structured editing produces portable MCF 1.0 source as you work.</p>
         <div className="actions">
           <Link
@@ -177,7 +177,7 @@ export default function CreatePage() {
             onClick={() => void persistNow()}
             to={`/courses/${draft.id}/learn`}
           >
-            Learner preview
+            Preview course
           </Link>
           <button
             className="button secondary"
@@ -419,6 +419,13 @@ export default function CreatePage() {
                 onChange={(event) => void addMedia(event.target.files)}
               />
             </label>
+            {draft.media.length ? (
+              <div className="wide media-preview" aria-label="Attached media">
+                {draft.media.map((file) => (
+                  <MediaPreview file={file} key={file.path} />
+                ))}
+              </div>
+            ) : null}
           </section>
           {lesson.activities.map((activity, activityIndex) => (
             <ActivityEditor
@@ -460,6 +467,25 @@ export default function CreatePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+function MediaPreview({ file }: { file: VirtualFile }) {
+  const url = useMemo(
+    () => URL.createObjectURL(new Blob([file.data as BlobPart], { type: file.type })),
+    [file],
+  );
+  useEffect(() => {
+    return () => URL.revokeObjectURL(url);
+  }, [url]);
+  const alt = file.path.split("/").pop() ?? "Attached media";
+  if (file.type?.startsWith("audio/")) return <audio controls src={url} />;
+  if (file.type?.startsWith("video/")) return <video controls src={url} />;
+  return (
+    <figure>
+      <img src={url} alt={alt} />
+      <figcaption>{alt}</figcaption>
+    </figure>
   );
 }
 

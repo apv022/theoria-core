@@ -63,7 +63,7 @@ export default function CompilePage() {
         updatedAt: new Date().toISOString(),
       };
       setSource(pending);
-      setMessage(`${virtualFiles.length} files loaded locally. Nothing was uploaded.`);
+      setMessage(`${virtualFiles.length} source files ready for validation.`);
     } catch (error) {
       setMessage((error as Error).message);
     } finally {
@@ -115,8 +115,10 @@ export default function CompilePage() {
     <div className="page compile-page stack-lg">
       <header className="page-header">
         <p className="eyebrow">Browser compiler</p>
-        <h1>Bring an MCF course.</h1>
-        <p className="lede">Import, validate, preview, and export without uploading a byte.</p>
+        <h1>Compile an MCF course</h1>
+        <p className="lede">
+          Import source, review validation results, and export a compiled artifact.
+        </p>
       </header>
       <section
         className="drop-zone card"
