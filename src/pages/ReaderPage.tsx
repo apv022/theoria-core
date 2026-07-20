@@ -12,6 +12,7 @@ import type { Activity, CourseProgress, CourseSource, ParsedCourse } from "../ty
 const blankProgress = (courseId: string): CourseProgress => ({
   courseId,
   completedNotes: [],
+  completedPractices: [],
   completedLessons: [],
   responses: {},
   assessments: {},
@@ -35,6 +36,7 @@ export default function ReaderPage() {
         const saved = (await progressStore.get(id)) ?? blankProgress(id);
         setProgress({
           ...saved,
+          completedPractices: saved.completedPractices ?? [],
           currentLessonId: saved.currentLessonId ?? parsed.course.chapters[0]?.lessons[0]?.id,
         });
       } catch (error) {
@@ -71,12 +73,16 @@ export default function ReaderPage() {
         const activityKey = `${lesson.id}:${activity.id}`;
         if (activity.type === "notes") return next.completedNotes.includes(activityKey);
         if (activity.type === "assessment") return Boolean(next.assessments[activityKey]);
-        return selectedQuestions(activity)
+        const done = selectedQuestions(activity)
           .filter((question) => question.required)
           .every(
             (question) =>
               completion(question, next.responses[`${activityKey}:${question.id}`], true).complete,
           );
+        const practices = next.completedPractices ?? [];
+        if (done) next.completedPractices = [...new Set([...practices, activityKey])];
+        else next.completedPractices = practices.filter((key) => key !== activityKey);
+        return done;
       });
       next.completedLessons = lessonComplete
         ? [...new Set([...next.completedLessons, lesson.id])]
@@ -202,7 +208,20 @@ export default function ReaderPage() {
               key={activity.id}
             >
               <div className="activity-heading">
-                <span className="activity-type">{activity.type}</span>
+                <span className="activity-type">
+                  {activity.type}
+                  {(
+                    activity.type === "notes"
+                      ? progress.completedNotes.includes(`${lesson.id}:${activity.id}`)
+                      : activity.type === "practice"
+                        ? (progress.completedPractices ?? []).includes(
+                            `${lesson.id}:${activity.id}`,
+                          )
+                        : Boolean(progress.assessments[`${lesson.id}:${activity.id}`])
+                  )
+                    ? " · Complete ✓"
+                    : ""}
+                </span>
                 <h2>{activity.title ?? activity.type}</h2>
               </div>
               <div

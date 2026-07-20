@@ -55,6 +55,22 @@ Last updated: 2026-07-19
 - Remote video and media require connectivity. Client-visible answers are suitable only for
   self-study, not secure examinations.
 
+## Repair pass — local learning and compilation continuity
+
+- Completed work: added Compile and My Learning navigation/routes; persisted explicit enrollments;
+  added IndexedDB compilation history with compiled ZIP artifacts; surfaced compiled status in My
+  Courses; persisted practice completion and shared completion indicators; removed misleading
+  unavailable quota text; documented dev versus production PWA verification.
+- Verification: `npm run typecheck`, `npm run lint`, `npm test` (5 files, 13 tests), `npm run build`,
+  `npm run verify:static`, and `git diff --check` passed.
+- Architecture decisions: browser-only static Vite app remains unchanged; IndexedDB schema is now
+  version 2 with `enrollments` and `compilations` stores, keyed by stable course ID.
+- Known blockers/deferred work: asset parity fixture against external mcf-npm/mcf-python and a
+  production Playwright preview run remain follow-up hardening; legacy `/home/apv/Theoria` was not
+  modified.
+- Exact next phase: add the focused local-image ZIP parity regression fixture, then run the complete
+  browser journey against a production preview.
+
 ## Next task
 
 Connect `/home/apv/theoria-core` to the intended GitHub `theoria` repository using the documented

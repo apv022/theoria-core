@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { localCourses, storageUsage } from "../lib/storage";
+import { compilationStore, localCourses, storageUsage } from "../lib/storage";
 import { downloadBlob, exportZip } from "../mcf/zip";
 import type { CourseSource } from "../types";
 
 const size = (value?: number) =>
-  value === undefined ? "Unavailable" : `${(value / 1024 / 1024).toFixed(1)} MB`;
+  value !== undefined && Number.isFinite(value)
+    ? `${(value / 1024 / 1024).toFixed(1)} MB`
+    : undefined;
 export default function MyCoursesPage() {
   const [courses, setCourses] = useState<CourseSource[]>([]);
   const [usage, setUsage] = useState<{ usage?: number; quota?: number }>({});
+  const [compiled, setCompiled] = useState<string[]>([]);
   const refresh = () => {
     void localCourses.list().then(setCourses);
     void storageUsage().then(setUsage);
+    void compilationStore.list().then((items) => setCompiled(items.map((item) => item.courseId)));
   };
   useEffect(refresh, []);
   return (
@@ -24,15 +28,18 @@ export default function MyCoursesPage() {
           moving devices.
         </p>
       </header>
-      <div className="notice">
-        Storage used: {size(usage.usage)} of {size(usage.quota)}
-      </div>
+      {size(usage.usage) ? (
+        <div className="notice">Browser storage used: approximately {size(usage.usage)}</div>
+      ) : null}
       {courses.length ? (
         <div className="local-list">
           {courses.map((course) => (
             <article className="card" key={course.id}>
               <div>
-                <span className="activity-type">{course.origin}</span>
+                <span className="activity-type">
+                  {course.origin}
+                  {compiled.includes(course.id) ? " · compiled" : ""}
+                </span>
                 <h2>{course.title}</h2>
                 <p>
                   {course.files.length} source files · saved{" "}

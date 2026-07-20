@@ -15,6 +15,25 @@ export interface CourseSource {
   files: VirtualFile[];
   updatedAt: string;
 }
+export interface Enrollment {
+  courseId: string;
+  title: string;
+  sourceType: CourseSource["origin"];
+  startingLessonId?: string;
+  lastLessonId?: string;
+  startedAt: string;
+  lastOpenedAt: string;
+}
+export interface CompilationRecord {
+  courseId: string;
+  title: string;
+  source: CourseSource;
+  artifact?: Blob;
+  compiledAt: string;
+  warningCount: number;
+  outputSize: number;
+  status: "valid" | "warnings";
+}
 export interface CatalogCourse {
   id: string;
   title: string;
@@ -87,6 +106,7 @@ export interface CourseProgress {
   courseId: string;
   currentLessonId?: string;
   completedNotes: string[];
+  completedPractices?: string[];
   completedLessons: string[];
   responses: Record<string, unknown>;
   assessments: Record<string, { score: number; passed: boolean; attemptedAt: string }>;

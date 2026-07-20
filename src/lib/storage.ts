@@ -1,5 +1,5 @@
 import { openDB, type DBSchema } from "idb";
-import type { CourseProgress, CourseSource } from "../types";
+import type { CompilationRecord, CourseProgress, CourseSource, Enrollment } from "../types";
 
 interface TheoriaDatabase extends DBSchema {
   courses: { key: string; value: CourseSource };
@@ -9,15 +9,19 @@ interface TheoriaDatabase extends DBSchema {
     value: { id: string; courseId: string; blob: Blob; createdAt: string };
   };
   settings: { key: string; value: { key: string; value: unknown } };
+  enrollments: { key: string; value: Enrollment };
+  compilations: { key: string; value: CompilationRecord };
 }
 
 const database = () =>
-  openDB<TheoriaDatabase>("theoria-core", 1, {
+  openDB<TheoriaDatabase>("theoria-core", 2, {
     upgrade(db) {
       db.createObjectStore("courses", { keyPath: "id" });
       db.createObjectStore("progress", { keyPath: "courseId" });
       db.createObjectStore("artifacts", { keyPath: "id" });
       db.createObjectStore("settings", { keyPath: "key" });
+      db.createObjectStore("enrollments", { keyPath: "courseId" });
+      db.createObjectStore("compilations", { keyPath: "courseId" });
     },
   });
 
@@ -32,6 +36,17 @@ export const localCourses = {
     await transaction.objectStore("progress").delete(id);
     await transaction.done;
   },
+};
+
+export const enrollmentStore = {
+  list: async () => (await database()).getAll("enrollments"),
+  get: async (id: string) => (await database()).get("enrollments", id),
+  start: async (item: Enrollment) => (await database()).put("enrollments", item),
+};
+export const compilationStore = {
+  list: async () => (await database()).getAll("compilations"),
+  put: async (item: CompilationRecord) => (await database()).put("compilations", item),
+  delete: async (id: string) => (await database()).delete("compilations", id),
 };
 
 export const progressStore = {

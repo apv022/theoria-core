@@ -10,11 +10,14 @@ const ReaderPage = lazy(() => import("./pages/ReaderPage"));
 const CreatePage = lazy(() => import("./pages/CreatePage"));
 const CompilePage = lazy(() => import("./pages/CompilePage"));
 const MyCoursesPage = lazy(() => import("./pages/MyCoursesPage"));
+const MyLearningPage = lazy(() => import("./pages/MyLearningPage"));
 
 const navigation = [
   ["/", "Home"],
   ["/discover", "Discover"],
+  ["/my-learning", "My Learning"],
   ["/create", "Create"],
+  ["/compile", "Compile"],
   ["/my-courses", "My Courses"],
   ["/about", "About"],
 ] as const;
@@ -65,6 +68,7 @@ export function App() {
             <Route path="/create" element={<CreatePage />} />
             <Route path="/compile" element={<CompilePage />} />
             <Route path="/my-courses" element={<MyCoursesPage />} />
+            <Route path="/my-learning" element={<MyLearningPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route
               path="*"

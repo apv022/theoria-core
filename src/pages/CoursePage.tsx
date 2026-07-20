@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { catalog } from "../lib/catalog";
-import { localCourses } from "../lib/storage";
+import { enrollmentStore, localCourses } from "../lib/storage";
 import { parseCourseFiles } from "../mcf/parser";
 import { VirtualCourseFiles } from "../mcf/vfs";
 
@@ -59,9 +59,9 @@ export default function CoursePage() {
           <p className="lede">{course.description}</p>
           <p>By {course.author}</p>
           {course.lessons ? <p>{course.lessons} lessons</p> : null}
-          <Link className="button" to={`/courses/${course.id}/learn`}>
-            Start learning
-          </Link>
+          <button className="button" onClick={() => void startCourse(course)}>
+            Start course
+          </button>
         </div>
         <div className="course-cover large">{course.title.slice(0, 1)}</div>
       </div>
@@ -73,4 +73,22 @@ export default function CoursePage() {
       </section>
     </div>
   );
+}
+
+async function startCourse(course: Overview) {
+  const source = await localCourses.get(course.id);
+  let startingLessonId: string | undefined;
+  if (source) {
+    const parsed = parseCourseFiles(new VirtualCourseFiles(source.files)).course;
+    startingLessonId = parsed?.chapters[0]?.lessons[0]?.id;
+  }
+  await enrollmentStore.start({
+    courseId: course.id,
+    title: course.title,
+    sourceType: source?.origin ?? "bundled",
+    startingLessonId,
+    startedAt: new Date().toISOString(),
+    lastOpenedAt: new Date().toISOString(),
+  });
+  window.location.href = `/courses/${course.id}/learn`;
 }

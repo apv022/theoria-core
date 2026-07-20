@@ -1,8 +1,14 @@
-import { useState, type DragEvent } from "react";
+import { useEffect, useState, type DragEvent } from "react";
 import { Link } from "react-router-dom";
-import { localCourses } from "../lib/storage";
+import { compilationStore, localCourses } from "../lib/storage";
 import { downloadBlob, exportZip, filesFromSelection } from "../mcf/zip";
-import type { CourseSource, ParsedCourse, ValidationIssue, VirtualFile } from "../types";
+import type {
+  CompilationRecord,
+  CourseSource,
+  ParsedCourse,
+  ValidationIssue,
+  VirtualFile,
+} from "../types";
 
 type Compilation = {
   course?: ParsedCourse;
@@ -38,6 +44,10 @@ export default function CompilePage() {
   const [result, setResult] = useState<Compilation>();
   const [message, setMessage] = useState("Choose a ZIP, folder, or set of MCF files.");
   const [working, setWorking] = useState(false);
+  const [history, setHistory] = useState<CompilationRecord[]>([]);
+  useEffect(() => {
+    void compilationStore.list().then(setHistory);
+  }, []);
   async function receive(files: FileList | File[]) {
     setWorking(true);
     setResult(undefined);
@@ -69,6 +79,22 @@ export default function CompilePage() {
         const saved = { ...source, id: compiled.course.id, title: compiled.course.title };
         setSource(saved);
         await localCourses.put(saved);
+        const artifact = await exportZip(compiled.files ?? []);
+        const record: CompilationRecord = {
+          courseId: saved.id,
+          title: saved.title,
+          source: saved,
+          artifact,
+          compiledAt: new Date().toISOString(),
+          warningCount: compiled.issues.filter((i) => i.severity === "warning").length,
+          outputSize: artifact.size,
+          status: compiled.issues.some((i) => i.severity === "warning") ? "warnings" : "valid",
+        };
+        await compilationStore.put(record);
+        setHistory((items) => [
+          record,
+          ...items.filter((item) => item.courseId !== record.courseId),
+        ]);
         setMessage(
           `Valid ${compiled.course.mcf} course. Saved locally and compiled ${compiled.files?.length ?? 0} output files.`,
         );
@@ -141,6 +167,47 @@ export default function CompilePage() {
           </button>
         </div>
       ) : null}
+      <section className="stack">
+        <h2>Recent compilations</h2>
+        {history.length ? (
+          history.map((item) => (
+            <article className="card actions" key={item.courseId}>
+              <div>
+                <strong>{item.title}</strong>
+                <p>
+                  {item.status} · {new Date(item.compiledAt).toLocaleString()} ·{" "}
+                  {(item.outputSize / 1024).toFixed(0)} KB
+                </p>
+              </div>
+              <Link className="button secondary" to={`/courses/${item.courseId}/learn`}>
+                Preview
+              </Link>
+              {item.artifact ? (
+                <button
+                  className="button secondary"
+                  onClick={() => downloadBlob(item.artifact!, `${item.courseId}-theoria.zip`)}
+                >
+                  Download
+                </button>
+              ) : null}
+              <button
+                className="text-button danger"
+                onClick={() =>
+                  void compilationStore
+                    .delete(item.courseId)
+                    .then(() =>
+                      setHistory((items) => items.filter((x) => x.courseId !== item.courseId)),
+                    )
+                }
+              >
+                Remove
+              </button>
+            </article>
+          ))
+        ) : (
+          <p>No compilations yet.</p>
+        )}
+      </section>
       {result?.issues.length ? (
         <section className="card">
           <h2>Validation results</h2>
