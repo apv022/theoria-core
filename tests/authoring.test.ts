@@ -49,5 +49,10 @@ describe("authoring and compilation", () => {
     expect(result.files?.map((file) => file.path)).toEqual(
       expect.arrayContaining(["index.html", "course.json", "styles.css", "player.js"]),
     );
+    const player = new TextDecoder().decode(
+      result.files?.find((file) => file.path === "player.js")?.data,
+    );
+    expect(player).toContain("multiple_select");
+    expect(player).toContain("assessment-submit");
   });
 });

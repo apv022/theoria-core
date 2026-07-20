@@ -161,6 +161,10 @@ export default function CreatePage() {
       if (cover && additions[0]) next.cover = additions[0].path;
     });
   };
+  const persistNow = () =>
+    Promise.all([localCourses.put(source), settingsStore.put("authoring-draft", draft)]).then(() =>
+      setStatus("Saved locally"),
+    );
   return (
     <div className="page studio stack-lg">
       <header className="page-header">
@@ -168,14 +172,20 @@ export default function CreatePage() {
         <h1>Create a course.</h1>
         <p className="lede">Structured editing produces portable MCF 1.0 source as you work.</p>
         <div className="actions">
-          <Link className="button" to={`/courses/${draft.id}/learn`}>
+          <Link
+            className="button"
+            onClick={() => void persistNow()}
+            to={`/courses/${draft.id}/learn`}
+          >
             Learner preview
           </Link>
           <button
             className="button secondary"
             onClick={() =>
-              void exportZip(source.files).then((blob) =>
-                downloadBlob(blob, `${draft.id}-source.zip`),
+              void persistNow().then(() =>
+                exportZip(source.files).then((blob) =>
+                  downloadBlob(blob, `${draft.id}-source.zip`),
+                ),
               )
             }
           >
@@ -516,6 +526,38 @@ function ActivityEditor({
             />
           </label>
         ) : null}
+        {activity.type !== "notes" ? (
+          <>
+            <label>
+              <span>Randomize questions</span>
+              <input
+                checked={activity.randomize ?? false}
+                type="checkbox"
+                onChange={(event) =>
+                  onEdit((next) => {
+                    next.randomize = event.target.checked;
+                  })
+                }
+              />
+            </label>
+            <label>
+              Question pool size
+              <input
+                min="1"
+                placeholder="All questions"
+                type="number"
+                value={activity.questionPoolSize ?? ""}
+                onChange={(event) =>
+                  onEdit((next) => {
+                    next.questionPoolSize = event.target.value
+                      ? Number(event.target.value)
+                      : undefined;
+                  })
+                }
+              />
+            </label>
+          </>
+        ) : null}
         <label className="wide">
           Markdown content
           <textarea
@@ -628,6 +670,54 @@ function ActivityEditor({
               />
             </label>
           )}
+          {question.type === "essay" ? (
+            <>
+              <label>
+                Minimum sentences
+                <input
+                  min="1"
+                  type="number"
+                  value={question.minimumSentences ?? ""}
+                  onChange={(event) =>
+                    onEdit((next) => {
+                      next.questions[index]!.minimumSentences = event.target.value
+                        ? Number(event.target.value)
+                        : undefined;
+                    })
+                  }
+                />
+              </label>
+              <label>
+                Required concepts (comma separated)
+                <input
+                  value={question.keywords?.join(", ") ?? ""}
+                  onChange={(event) =>
+                    onEdit((next) => {
+                      next.questions[index]!.keywords = event.target.value
+                        .split(",")
+                        .map((value) => value.trim())
+                        .filter(Boolean);
+                    })
+                  }
+                />
+              </label>
+              <label>
+                Minimum concepts
+                <input
+                  min="1"
+                  type="number"
+                  value={question.minimumKeywords ?? ""}
+                  onChange={(event) =>
+                    onEdit((next) => {
+                      next.questions[index]!.minimumKeywords = event.target.value
+                        ? Number(event.target.value)
+                        : undefined;
+                    })
+                  }
+                />
+              </label>
+            </>
+          ) : null}
           <label>
             Hint
             <input

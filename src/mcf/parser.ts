@@ -118,6 +118,13 @@ function parseQuestion(raw: string, file: string, issues: ValidationIssue[]): Qu
     (type !== "numeric" || typeof data.tolerance !== "number" || data.tolerance < 0)
   )
     error(issues, file, `Question "${questionId}" has invalid tolerance.`);
+  if (
+    data.points !== undefined &&
+    (typeof data.points !== "number" || !Number.isFinite(data.points) || data.points < 0)
+  )
+    error(issues, file, `Question "${questionId}" points must be non-negative.`);
+  if (data.required !== undefined && typeof data.required !== "boolean")
+    error(issues, file, `Question "${questionId}" required must be boolean.`);
   return {
     id: questionId,
     type: type as QuestionType,
@@ -181,6 +188,19 @@ export function parseLessonSource(source: string, file: string, issues: Validati
         passingScore > 1)
     )
       error(issues, file, `Activity "${activityId}" has invalid passing_score.`);
+    if (
+      meta.randomize !== undefined &&
+      (!["practice", "assessment"].includes(type) || typeof meta.randomize !== "boolean")
+    )
+      error(issues, file, `Activity "${activityId}" has invalid randomize.`);
+    if (
+      meta.question_pool_size !== undefined &&
+      (!["practice", "assessment"].includes(type) ||
+        !Number.isInteger(meta.question_pool_size) ||
+        Number(meta.question_pool_size) <= 0 ||
+        Number(meta.question_pool_size) > questions.length)
+    )
+      error(issues, file, `Activity "${activityId}" has invalid question_pool_size.`);
     activities.push({
       id: activityId,
       type: type as Activity["type"],
@@ -304,5 +324,45 @@ export function parseCourseFiles(vfs: VirtualCourseFiles): {
     cover: text(manifest, "cover", "manifest.yaml", issues, false),
     chapters,
   };
+  const checkReference = (reference: string, lesson?: Lesson) => {
+    const file = lesson?.sourcePath ?? "manifest.yaml";
+    if (/^youtube:/i.test(reference)) {
+      if (!/^youtube:[A-Za-z0-9_-]+$/.test(reference))
+        error(issues, file, `Invalid YouTube provider reference: ${reference}`);
+      return;
+    }
+    if (/^https?:/i.test(reference)) {
+      try {
+        const url = new URL(reference);
+        if (!url.hostname) throw new Error();
+      } catch {
+        error(issues, file, `Invalid remote URL: ${reference}`);
+      }
+      return;
+    }
+    if (/^(?:mailto:|#)/i.test(reference)) return;
+    try {
+      const path = joinPath(lesson ? dirname(lesson.sourcePath) : "", reference);
+      if (!vfs.has(path))
+        error(issues, file, `Referenced local asset does not exist: ${reference}`);
+    } catch {
+      error(issues, file, `Path escapes the course root: ${reference}`);
+    }
+  };
+  if (course.cover) checkReference(course.cover);
+  for (const lesson of chapters.flatMap((chapter) => chapter.lessons))
+    for (const content of lesson.activities.flatMap((activity) => [
+      activity.content,
+      ...activity.questions.flatMap((question) => [
+        question.prompt,
+        question.hint ?? "",
+        question.explanation ?? "",
+        ...(question.options ?? []).map((option) => option.text),
+      ]),
+    ]))
+      for (const match of content.matchAll(
+        /!?\[[^\]]*\]\(([^\s)]+)|@\[(?:audio|video)\]\(([^\s)]+)/g,
+      ))
+        checkReference(match[1] ?? match[2] ?? "", lesson);
   return issues.some((issue) => issue.severity === "error") ? { issues } : { course, issues };
 }

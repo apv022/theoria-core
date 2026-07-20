@@ -12,6 +12,9 @@ export interface DraftQuestion {
   points: number;
   required: boolean;
   minimumWords?: number;
+  minimumSentences?: number;
+  keywords?: string[];
+  minimumKeywords?: number;
 }
 export interface DraftActivity {
   id: string;
@@ -19,6 +22,8 @@ export interface DraftActivity {
   title: string;
   content: string;
   passingScore?: number;
+  randomize?: boolean;
+  questionPoolSize?: number;
   questions: DraftQuestion[];
 }
 export interface DraftLesson {
@@ -85,6 +90,10 @@ function questionSource(question: DraftQuestion) {
         points: question.points,
         required: question.required,
         minimum_words: question.type === "essay" ? question.minimumWords : undefined,
+        minimum_sentences: question.type === "essay" ? question.minimumSentences : undefined,
+        keywords:
+          question.type === "essay" && question.keywords?.length ? question.keywords : undefined,
+        minimum_keywords: question.type === "essay" ? question.minimumKeywords : undefined,
       }),
       { noRefs: true, lineWidth: 100 },
     )
@@ -113,6 +122,8 @@ function lessonSource(lesson: DraftLesson, author: string, license: string) {
             title: activity.title,
             passing_score:
               activity.type === "assessment" ? (activity.passingScore ?? 0.7) : undefined,
+            randomize: activity.type === "notes" ? undefined : activity.randomize,
+            question_pool_size: activity.type === "notes" ? undefined : activity.questionPoolSize,
           }),
           { noRefs: true },
         )

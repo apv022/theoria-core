@@ -52,13 +52,26 @@ export default function ReaderPage() {
       : lessons[0]?.id;
   const lesson = lessons.find((item) => item.id === selectedId);
   const index = lessons.findIndex((item) => item.id === selectedId);
+  const selectedQuestions = (activity: Activity) => {
+    if (!activity.randomize && !activity.questionPoolSize) return activity.questions;
+    const poolKey = `${lesson?.id ?? "course"}:${activity.id}`;
+    const hash = (value: string) =>
+      [...value].reduce((result, character) => (result * 31 + character.charCodeAt(0)) | 0, 7);
+    const order = activity.questions.map((question) => question.id);
+    if (activity.randomize)
+      order.sort((left, right) => hash(`${poolKey}:${left}`) - hash(`${poolKey}:${right}`));
+    const selected = order.slice(0, activity.questionPoolSize ?? order.length);
+    return selected.map((questionId) =>
+      activity.questions.find((question) => question.id === questionId)!,
+    );
+  };
   const save = (next: CourseProgress) => {
     if (lesson) {
       const lessonComplete = lesson.activities.every((activity) => {
         const activityKey = `${lesson.id}:${activity.id}`;
         if (activity.type === "notes") return next.completedNotes.includes(activityKey);
         if (activity.type === "assessment") return Boolean(next.assessments[activityKey]);
-        return activity.questions
+        return selectedQuestions(activity)
           .filter((question) => question.required)
           .every(
             (question) =>
@@ -76,7 +89,8 @@ export default function ReaderPage() {
   const setResponse = (key: string, value: unknown) =>
     save({ ...progress, responses: { ...progress.responses, [key]: value } });
   function submitAssessment(activity: Activity) {
-    const required = activity.questions.filter((question) => question.required);
+    const questions = selectedQuestions(activity);
+    const required = questions.filter((question) => question.required);
     const unmet = required.filter(
       (question) =>
         !completion(
@@ -91,7 +105,7 @@ export default function ReaderPage() {
     }
     let earned = 0;
     let possible = 0;
-    for (const question of activity.questions)
+    for (const question of questions)
       if (question.type !== "essay") {
         const response = progress.responses[`${lesson!.id}:${activity.id}:${question.id}`];
         if (question.required || hasResponse(response)) {
@@ -158,6 +172,17 @@ export default function ReaderPage() {
             ))}
           </section>
         ))}
+        <button
+          className="text-button danger"
+          onClick={() => {
+            if (confirm(`Reset all local progress for ${course.title}?`)) {
+              void progressStore.reset(course.id);
+              setProgress({ ...blankProgress(course.id), currentLessonId: lessons[0]?.id });
+            }
+          }}
+        >
+          Reset progress
+        </button>
       </aside>
       <article className="lesson">
         <header>
@@ -184,7 +209,7 @@ export default function ReaderPage() {
                 className="rich"
                 dangerouslySetInnerHTML={{ __html: render(activity.content) }}
               />
-              {activity.questions.map((question) => {
+              {selectedQuestions(activity).map((question) => {
                 const key = `${activityKey}:${question.id}`;
                 return (
                   <QuestionView

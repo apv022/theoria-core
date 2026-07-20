@@ -42,6 +42,11 @@ select,
 textarea {
   font: inherit;
 }
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  min-height: auto;
+}
 a {
   color: inherit;
 }

@@ -37,6 +37,27 @@ const allowed = new Set([
   "webm",
   "vtt",
 ]);
+function extension(path: string) {
+  return path.split(".").pop()?.toLowerCase() ?? "";
+}
+function assertAllowed(path: string) {
+  if (!allowed.has(extension(path))) throw new Error(`${path} uses an unsupported file type.`);
+}
+function sanitizeImported(path: string, data: Uint8Array) {
+  if (extension(path) !== "svg") return data;
+  const document = new DOMParser().parseFromString(new TextDecoder().decode(data), "image/svg+xml");
+  if (document.querySelector("parsererror")) throw new Error(`${path} is not valid SVG.`);
+  document.querySelectorAll("script,foreignObject").forEach((node) => node.remove());
+  document.querySelectorAll("*").forEach((node) => {
+    for (const attribute of [...node.attributes])
+      if (
+        attribute.name.toLowerCase().startsWith("on") ||
+        /^(?:javascript:|data:text\/html)/i.test(attribute.value.trim())
+      )
+        node.removeAttribute(attribute.name);
+  });
+  return new TextEncoder().encode(new XMLSerializer().serializeToString(document));
+}
 
 export async function importZip(file: File): Promise<VirtualFile[]> {
   if (file.size > ZIP_LIMITS.compressed) throw new Error("ZIP exceeds the 50 MB compressed limit.");
@@ -63,10 +84,10 @@ export async function importZip(file: File): Promise<VirtualFile[]> {
       const entry = regular[index]!;
       const original = names[index]!;
       const path = stripRoot ? original.slice(original.indexOf("/") + 1) : original;
-      const extension = path.split(".").pop()?.toLowerCase() ?? "";
-      if (!allowed.has(extension)) throw new Error(`${path} uses an unsupported file type.`);
+      assertAllowed(path);
       if (!entry.getData) throw new Error(`${path} cannot be extracted.`);
-      files.push({ path: normalizePath(path), data: await entry.getData(new Uint8ArrayWriter()) });
+      const data = await entry.getData(new Uint8ArrayWriter());
+      files.push({ path: normalizePath(path), data: sanitizeImported(path, data) });
     }
     return files;
   } finally {
@@ -94,7 +115,18 @@ export function downloadBlob(blob: Blob, name: string) {
 
 export async function filesFromSelection(files: FileList | File[]) {
   const list = [...files];
-  if (list.length === 1 && list[0]!.name.toLowerCase().endsWith(".zip")) return importZip(list[0]!);
+  if (list.length === 1) {
+    const candidate = list[0]!;
+    const signature = new Uint8Array(await candidate.slice(0, 4).arrayBuffer());
+    if (
+      candidate.name.toLowerCase().endsWith(".zip") ||
+      (signature[0] === 0x50 &&
+        signature[1] === 0x4b &&
+        signature[2] === 0x03 &&
+        signature[3] === 0x04)
+    )
+      return importZip(candidate);
+  }
   const paths = list.map(
     (file) => (file as File & { webkitRelativePath?: string }).webkitRelativePath || file.name,
   );
@@ -109,9 +141,10 @@ export async function filesFromSelection(files: FileList | File[]) {
         throw new Error("Selection exceeds import size limits.");
       const original = paths[index]!;
       const path = strip ? original.slice(original.indexOf("/") + 1) : original;
+      assertAllowed(path);
       return {
         path: normalizePath(path),
-        data: new Uint8Array(await file.arrayBuffer()),
+        data: sanitizeImported(path, new Uint8Array(await file.arrayBuffer())),
         type: file.type,
       };
     }),
