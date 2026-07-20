@@ -319,14 +319,14 @@ function remapReferences(course: ParsedCourse) {
   const output = structuredClone(course);
   const remap = (source: string, lessonPath: string) =>
     source.replace(
-      /(\]\(|@\[(?:audio|video)\]\()([^\s)]+)([^)]*\))/g,
-      (_match, open: string, reference: string, close: string) => {
+      /(\]\(|@\[(?:audio|video)\]\()([^)]+?)(\s+(?:"[^"]*"|'[^']*'))?\)/g,
+      (_match, open: string, reference: string, title: string | undefined) => {
         if (/^(?:https?:|youtube:|mailto:|#)/i.test(reference))
-          return `${open}${reference}${close}`;
+          return `${open}${reference}${title ?? ""})`;
         try {
-          return `${open}${joinPath(dirname(lessonPath), reference)}${close}`;
+          return `${open}${joinPath(dirname(lessonPath), reference.trim())}${title ?? ""})`;
         } catch {
-          return `${open}#${close}`;
+          return `${open}#${title ?? ""})`;
         }
       },
     );

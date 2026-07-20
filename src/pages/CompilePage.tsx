@@ -1,6 +1,7 @@
 import { useEffect, useState, type DragEvent } from "react";
 import { Link } from "react-router-dom";
 import { compilationStore, localCourses } from "../lib/storage";
+import { browserCapabilities, browserId } from "../lib/capabilities";
 import { downloadBlob, exportZip, filesFromSelection } from "../mcf/zip";
 import type {
   CompilationRecord,
@@ -22,7 +23,7 @@ function compileInWorker(source: CourseSource): Promise<Compilation> {
     const worker = new Worker(new URL("../workers/compiler.worker.ts", import.meta.url), {
       type: "module",
     });
-    const id = crypto.randomUUID();
+    const id = browserId();
     worker.onmessage = (
       event: MessageEvent<{ id: string; result?: Compilation; error?: string }>,
     ) => {
@@ -44,6 +45,7 @@ export default function CompilePage() {
   const [result, setResult] = useState<Compilation>();
   const [message, setMessage] = useState("Choose a ZIP, folder, or set of MCF files.");
   const [working, setWorking] = useState(false);
+  const capabilities = browserCapabilities();
   const [history, setHistory] = useState<CompilationRecord[]>([]);
   useEffect(() => {
     void compilationStore.list().then(setHistory);
@@ -152,9 +154,19 @@ export default function CompilePage() {
       </div>
       {source ? (
         <div className="actions">
-          <button className="button" disabled={working} onClick={() => void validate()}>
+          <button
+            className="button"
+            disabled={working || !capabilities.worker}
+            onClick={() => void validate()}
+          >
             {working ? "Working…" : "Validate and compile"}
           </button>
+          {!capabilities.worker ? (
+            <p className="notice">
+              This browser does not support Web Workers, so compilation is unavailable. Import and
+              export remain available.
+            </p>
+          ) : null}
           <button
             className="button secondary"
             onClick={() =>
@@ -181,6 +193,20 @@ export default function CompilePage() {
               </div>
               <Link className="button secondary" to={`/courses/${item.courseId}/learn`}>
                 Preview
+              </Link>
+              <button
+                className="button secondary"
+                onClick={() => {
+                  setSource(item.source);
+                  setResult(undefined);
+                  setMessage(`Ready to recompile ${item.title}.`);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              >
+                Recompile
+              </button>
+              <Link className="button secondary" to="/my-courses">
+                Open in My Courses
               </Link>
               {item.artifact ? (
                 <button

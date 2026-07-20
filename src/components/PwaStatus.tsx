@@ -13,6 +13,14 @@ export function PwaStatus() {
     updateServiceWorker,
   } = useRegisterSW();
   useEffect(() => {
+    if (import.meta.env.DEV) {
+      void navigator.serviceWorker
+        ?.getRegistrations?.()
+        .then((registrations) =>
+          Promise.all(registrations.map((registration) => registration.unregister())),
+        );
+      return;
+    }
     const listener = (event: Event) => {
       event.preventDefault();
       setInstall(event as InstallEvent);
@@ -20,6 +28,7 @@ export function PwaStatus() {
     window.addEventListener("beforeinstallprompt", listener);
     return () => window.removeEventListener("beforeinstallprompt", listener);
   }, []);
+  if (import.meta.env.DEV) return null;
   if (needRefresh)
     return (
       <div className="pwa-toast" role="status">

@@ -61,15 +61,28 @@ Last updated: 2026-07-19
   added IndexedDB compilation history with compiled ZIP artifacts; surfaced compiled status in My
   Courses; persisted practice completion and shared completion indicators; removed misleading
   unavailable quota text; documented dev versus production PWA verification.
-- Verification: `npm run typecheck`, `npm run lint`, `npm test` (5 files, 13 tests), `npm run build`,
-  `npm run verify:static`, and `git diff --check` passed.
-- Architecture decisions: browser-only static Vite app remains unchanged; IndexedDB schema is now
-  version 2 with `enrollments` and `compilations` stores, keyed by stable course ID.
+- Verification: `npm run typecheck`, `npm run lint`, `npm test` (5 files, 13 tests),
+  `npm run build`, `npm run verify:static`, and `git diff --check` passed.
+- Architecture decisions: browser-only static Vite app remains unchanged; IndexedDB schema version 3
+  uses explicit 0→1, 1→2, and 2→3 migrations, with `enrollments` and `compilations` keyed by stable
+  course ID.
 - Known blockers/deferred work: asset parity fixture against external mcf-npm/mcf-python and a
   production Playwright preview run remain follow-up hardening; legacy `/home/apv/Theoria` was not
   modified.
-- Exact next phase: add the focused local-image ZIP parity regression fixture, then run the complete
-  browser journey against a production preview.
+- Exact next phase: run the manual Firefox/Brave localhost/LAN matrix and add the focused
+  local-image ZIP parity fixture against the external MCF implementations.
+
+## Regression repair — migration and origin resilience
+
+- Completed work: replaced the aborting IndexedDB upgrade with sequential migrations; added upgrade,
+  blocked-connection, and transaction diagnostics; stale connections close on `versionchange`.
+  Compiler IDs now degrade when `crypto.randomUUID` is unavailable; missing Workers disable only
+  compilation. Development unregisters stale production service workers while production
+  registration remains enabled. Compile history now also exposes recompile and My Courses actions.
+- Verification: strict typecheck, 14 unit tests (including populated v1→v3 migration), production
+  build/static verification, and four Playwright browser journeys passed locally.
+- Known limitation: this environment cannot truthfully certify the requested manual LAN HTTP matrix
+  in Firefox and Brave. PWA installation remains intentionally unsupported on HTTP LAN origins.
 
 ## Next task
 
