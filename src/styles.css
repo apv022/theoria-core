@@ -624,6 +624,36 @@ textarea {
   max-height: 28rem;
   overflow: auto;
 }
+.structure-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.structure-toolbar button {
+  flex: 1 1 7rem;
+}
+.tree-course {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: 0.4rem;
+  background: var(--sage-soft);
+  color: var(--text);
+}
+.tree-course strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tree-course + [role="group"] {
+  margin-left: 0.55rem;
+  padding-left: 0.55rem;
+  border-left: 1px solid var(--border);
+}
 .tree-chapter > ol {
   margin-left: 0.75rem;
   padding-left: 0.5rem;

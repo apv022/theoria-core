@@ -31,18 +31,11 @@ export default function CreatePage() {
   const [lessonIndex, setLessonIndex] = useState(0);
   const [status, setStatus] = useState("Saved locally");
   const [dragged, setDragged] = useState<number>();
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => new Set());
   useEffect(() => {
     void settingsStore.get<CourseDraft>("authoring-draft").then((saved) => {
       if (saved) {
         const next = clone(saved);
-        next.chapters.forEach((item) =>
-          item.lessons.forEach((currentLesson) =>
-            currentLesson.activities.forEach((activity) => {
-              if (activity.type === "notes" && activity.title === "Learn")
-                activity.title = "Reading";
-            }),
-          ),
-        );
         setDraft(next);
       }
     });
@@ -186,7 +179,11 @@ export default function CreatePage() {
       })),
     );
     edit((next) => {
-      next.media.push(...additions);
+      for (const addition of additions) {
+        const existing = next.media.findIndex((file) => file.path === addition.path);
+        if (existing < 0) next.media.push(addition);
+        else next.media[existing] = addition;
+      }
       if (cover && additions[0]) next.cover = additions[0].path;
     });
   };
@@ -237,79 +234,97 @@ export default function CreatePage() {
         <aside className="studio-outline card">
           <h2>Structure</h2>
           <p className="muted">Choose a chapter, then arrange its lessons.</p>
-          <div className="structure-tree" role="tree" aria-label="Course structure">
-            {draft.chapters.map((item, chapterAt) => (
-              <div className="tree-chapter" key={item.id}>
-                <button
-                  className={`tree-chapter-button ${chapterAt === chapterIndex ? "current" : ""}`}
-                  role="treeitem"
-                  aria-expanded="true"
-                  onClick={() => {
-                    setChapterIndex(chapterAt);
-                    setLessonIndex(0);
-                  }}
-                >
-                  <span aria-hidden="true">⌄</span>
-                  <span>{item.title}</span>
-                </button>
-                <ol role="group">
-                  {item.lessons.map((lessonItem, index) => (
-                    <li
-                      draggable={chapterAt === chapterIndex}
-                      onDragStart={() => chapterAt === chapterIndex && setDragged(index)}
-                      onDragOver={(event) => event.preventDefault()}
-                      onDrop={() => {
-                        if (
-                          chapterAt !== chapterIndex ||
-                          dragged === undefined ||
-                          dragged === index
-                        )
-                          return;
-                        editChapter((next) => {
-                          const [moved] = next.lessons.splice(dragged, 1);
-                          next.lessons.splice(index, 0, moved!);
-                        });
-                        setLessonIndex(index);
-                        setDragged(undefined);
-                      }}
-                      key={lessonItem.id}
-                    >
-                      <button
-                        className={
-                          chapterAt === chapterIndex && index === lessonIndex ? "current" : ""
-                        }
-                        role="treeitem"
-                        onClick={() => {
-                          setChapterIndex(chapterAt);
-                          setLessonIndex(index);
-                        }}
-                      >
-                        {lessonItem.title}
-                      </button>
-                      <button
-                        aria-label={`Duplicate ${lessonItem.title}`}
-                        onClick={() => duplicateLesson(chapterAt, index)}
-                      >
-                        ⧉
-                      </button>
-                      <button
-                        className="danger"
-                        aria-label={`Delete ${lessonItem.title}`}
-                        disabled={item.lessons.length <= 1}
-                        onClick={() => deleteLesson(chapterAt, index)}
-                      >
-                        ×
-                      </button>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            ))}
-          </div>
-          <div className="structure-actions">
+          <div className="structure-toolbar" role="toolbar" aria-label="Create course structure">
             <button className="text-button" onClick={addChapter}>
               + Chapter
             </button>
+            <button className="text-button" onClick={addLesson}>
+              + Lesson
+            </button>
+          </div>
+          <div className="structure-tree" role="tree" aria-label="Course structure">
+            <div className="tree-course" role="treeitem" aria-expanded="true">
+              <span aria-hidden="true">▾</span>
+              <strong title={draft.title}>{draft.title}</strong>
+            </div>
+            <div role="group">
+              {draft.chapters.map((item, chapterAt) => (
+                <div className="tree-chapter" key={item.id}>
+                  <button
+                    className={`tree-chapter-button ${chapterAt === chapterIndex ? "current" : ""}`}
+                    role="treeitem"
+                    aria-expanded={!collapsed.has(item.id)}
+                    aria-label={`${collapsed.has(item.id) ? "Expand" : "Collapse"} ${item.title}`}
+                    onClick={() => {
+                      setChapterIndex(chapterAt);
+                      setLessonIndex(0);
+                      setCollapsed((current) => {
+                        const next = new Set(current);
+                        if (next.has(item.id)) next.delete(item.id);
+                        else next.add(item.id);
+                        return next;
+                      });
+                    }}
+                  >
+                    <span aria-hidden="true">{collapsed.has(item.id) ? "›" : "⌄"}</span>
+                    <span>{item.title}</span>
+                  </button>
+                  <ol role="group" hidden={collapsed.has(item.id)}>
+                    {item.lessons.map((lessonItem, index) => (
+                      <li
+                        draggable={chapterAt === chapterIndex}
+                        onDragStart={() => chapterAt === chapterIndex && setDragged(index)}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDrop={() => {
+                          if (
+                            chapterAt !== chapterIndex ||
+                            dragged === undefined ||
+                            dragged === index
+                          )
+                            return;
+                          editChapter((next) => {
+                            const [moved] = next.lessons.splice(dragged, 1);
+                            next.lessons.splice(index, 0, moved!);
+                          });
+                          setLessonIndex(index);
+                          setDragged(undefined);
+                        }}
+                        key={lessonItem.id}
+                      >
+                        <button
+                          className={
+                            chapterAt === chapterIndex && index === lessonIndex ? "current" : ""
+                          }
+                          role="treeitem"
+                          onClick={() => {
+                            setChapterIndex(chapterAt);
+                            setLessonIndex(index);
+                          }}
+                        >
+                          {lessonItem.title}
+                        </button>
+                        <button
+                          aria-label={`Duplicate ${lessonItem.title}`}
+                          onClick={() => duplicateLesson(chapterAt, index)}
+                        >
+                          ⧉
+                        </button>
+                        <button
+                          className="danger"
+                          aria-label={`Delete ${lessonItem.title}`}
+                          disabled={item.lessons.length <= 1}
+                          onClick={() => deleteLesson(chapterAt, index)}
+                        >
+                          ×
+                        </button>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="structure-actions">
             <button
               className="text-button danger"
               disabled={draft.chapters.length <= 1}
@@ -318,9 +333,6 @@ export default function CreatePage() {
               Delete chapter
             </button>
           </div>
-          <button className="text-button" onClick={addLesson}>
-            + Lesson
-          </button>
         </aside>
         <div className="studio-editor stack">
           <section className="card form-grid">

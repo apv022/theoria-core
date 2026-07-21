@@ -1,12 +1,23 @@
 import { describe, expect, it } from "vitest";
-import { generateSource, initialDraft, newQuestion } from "../src/authoring/model";
+import { generateSource, initialDraft, newQuestion, uniqueId } from "../src/authoring/model";
 import { compileCourse } from "../src/mcf/compiler";
 import { parseCourseFiles } from "../src/mcf/parser";
 import { VirtualCourseFiles } from "../src/mcf/vfs";
 import type { QuestionType } from "../src/types";
-import { withoutDuplicateLessonHeading } from "../src/mcf/render";
 
 describe("authoring and compilation", () => {
+  it("resolves rapid, same-title ID collisions deterministically", () => {
+    const ids: string[] = [];
+    for (let index = 0; index < 5; index++) ids.push(uniqueId("New lesson", ids));
+    expect(ids).toEqual([
+      "new-lesson",
+      "new-lesson-2",
+      "new-lesson-3",
+      "new-lesson-4",
+      "new-lesson-5",
+    ]);
+    expect(uniqueId("My course", ["my-course"])).toBe("my-course-2");
+  });
   it("generates valid source containing all six question types", () => {
     const draft = initialDraft();
     const types: QuestionType[] = [
@@ -56,11 +67,45 @@ describe("authoring and compilation", () => {
     expect(player).toContain("multiple_select");
     expect(player).toContain("assessment-submit");
   });
-  it("removes only a repeated structured lesson heading", () => {
-    expect(withoutDuplicateLessonHeading("# Welcome\n\nBody", "Welcome")).toBe("Body");
-    expect(withoutDuplicateLessonHeading("# Different\n\nBody", "Welcome")).toContain(
-      "# Different",
+  it("faithfully preserves authored titles and repeated headings", () => {
+    const draft = initialDraft();
+    const activity = draft.chapters[0]!.lessons[0]!.activities[0]!;
+    activity.title = "Learn";
+    activity.content = "# Welcome\n\n## Details\n\n# Welcome";
+    const result = compileCourse(generateSource(draft));
+    const html = new TextDecoder().decode(
+      result.files?.find((file) => file.path === "index.html")?.data,
     );
+    expect(html).toContain("<h3>Learn</h3>");
+    expect(html.match(/<h1>Welcome<\/h1>/g)).toHaveLength(2);
+    expect(html).toContain("<h2>Details</h2>");
+  });
+  it("does not invent an activity title when none was authored", () => {
+    const draft = initialDraft();
+    draft.chapters[0]!.lessons[0]!.activities[0]!.title = "";
+    const html = new TextDecoder().decode(
+      compileCourse(generateSource(draft)).files?.find((file) => file.path === "index.html")?.data,
+    );
+    expect(html).not.toContain("<h3>notes</h3>");
+  });
+  it("preserves practice and assessment titles", () => {
+    const draft = initialDraft();
+    const lesson = draft.chapters[0]!.lessons[0]!;
+    lesson.activities.push(
+      { id: "try", type: "practice", title: "Try this", content: "Practice prompt", questions: [] },
+      {
+        id: "check",
+        type: "assessment",
+        title: "Final check",
+        content: "Assessment prompt",
+        questions: [],
+      },
+    );
+    const html = new TextDecoder().decode(
+      compileCourse(generateSource(draft)).files?.find((file) => file.path === "index.html")?.data,
+    );
+    expect(html).toContain("<h3>Try this</h3>");
+    expect(html).toContain("<h3>Final check</h3>");
   });
   it("preserves local image bytes and portable paths in compiled output", () => {
     const draft = initialDraft();
@@ -76,6 +121,10 @@ describe("authoring and compilation", () => {
     expect(asset?.data).toEqual(bytes);
     expect(html).toContain("assets/lesson image.png");
     expect(html).not.toMatch(/blob:|localhost/);
-    expect(html.match(/<h2>Welcome<\/h2>/g)).toHaveLength(1);
+    expect(html).toContain("<h1>Welcome</h1>");
+    const css = new TextDecoder().decode(
+      result.files?.find((file) => file.path === "styles.css")?.data,
+    );
+    expect(css).toContain("max-width:100%");
   });
 });

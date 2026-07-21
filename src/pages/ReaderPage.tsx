@@ -246,11 +246,7 @@ export default function ReaderPage() {
               <div className="activity-heading">
                 <span className="activity-type">{activity.type}</span>
                 <CompletionStatus complete={activityDone} />
-                <h2>
-                  {activity.type === "notes" && activity.title === "Learn"
-                    ? "Reading"
-                    : (activity.title ?? activity.type)}
-                </h2>
+                {activity.title ? <h2>{activity.title}</h2> : null}
               </div>
               <div
                 className="rich"
