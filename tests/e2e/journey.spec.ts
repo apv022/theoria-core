@@ -1,4 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+async function primaryLink(page: Page, name: string) {
+  const menu = page.getByRole("button", { name: "Toggle navigation menu" });
+  if (await menu.isVisible()) await menu.click();
+  return page.getByRole("link", { name, exact: true });
+}
 
 test("browse, learn, author, and open compiler", async ({ page }) => {
   await page.goto("/");
@@ -13,14 +19,14 @@ test("browse, learn, author, and open compiler", async ({ page }) => {
   await page.getByRole("button", { name: "Mark notes complete" }).click();
   await page.reload();
   await expect(page.getByRole("button", { name: "Notes completed ✓" })).toBeDisabled();
-  await page.getByRole("link", { name: "Create" }).click();
+  await (await primaryLink(page, "Create")).click();
   await page.getByLabel("Title").first().fill("Browser Journey");
   await expect(page.getByText(/Saved locally/)).toBeVisible();
   const sourceDownload = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export MCF ZIP" }).click();
   const sourcePath = await (await sourceDownload).path();
   expect(sourcePath).toBeTruthy();
-  await page.getByRole("link", { name: "My Courses" }).click();
+  await (await primaryLink(page, "My Courses")).click();
   await expect(page.getByRole("heading", { name: "Browser Journey" })).toBeVisible();
   await page.goto("/compile");
   await expect(page.getByRole("heading", { name: "Compile an MCF course" })).toBeVisible();
@@ -42,7 +48,7 @@ test("top-level navigation resets scroll while browser history remains usable", 
 }) => {
   await page.goto("/");
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-  await page.getByRole("link", { name: "Discover", exact: true }).click();
+  await (await primaryLink(page, "Discover")).click();
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
   await page.goBack();
   await expect(page.getByRole("heading", { name: "Explore, study, and create." })).toBeVisible();

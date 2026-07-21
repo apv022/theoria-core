@@ -147,6 +147,16 @@ p {
   color: var(--text);
   background: var(--soft);
 }
+.menu-button {
+  display: none;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
 .icon-button {
   width: 2.7rem;
   height: 2.7rem;
@@ -674,6 +684,69 @@ textarea {
   background: var(--soft);
   white-space: pre-wrap;
 }
+.source-browser {
+  display: grid;
+  gap: 1rem;
+}
+.source-browser-grid {
+  display: grid;
+  grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr);
+  gap: 1rem;
+  min-width: 0;
+}
+.source-tree {
+  display: grid;
+  align-content: start;
+  gap: 0.15rem;
+  max-height: 30rem;
+  overflow: auto;
+  padding: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.source-tree-entry {
+  min-width: max-content;
+  padding-block: 0.4rem;
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.source-tree-entry:hover,
+.source-tree-entry.selected {
+  background: var(--soft);
+}
+.source-file-preview {
+  min-width: 0;
+}
+.source-file-preview > strong {
+  display: block;
+  margin-bottom: 0.6rem;
+  overflow-wrap: anywhere;
+}
+.source-file-preview pre {
+  max-height: 27rem;
+  margin: 0;
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: var(--soft);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.source-file-preview img {
+  display: block;
+  width: 100%;
+  max-height: 27rem;
+  object-fit: contain;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.muted {
+  color: var(--muted);
+}
 .drop-zone {
   display: grid;
   justify-items: center;
@@ -742,14 +815,24 @@ textarea {
     flex-wrap: wrap;
     padding-block: 0.6rem;
   }
+  .menu-button {
+    display: block;
+    margin-left: auto;
+  }
   .site-header nav {
+    display: none;
     order: 3;
     width: 100%;
-    flex-wrap: wrap;
-    overflow: visible;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.5rem 0 0.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .site-header nav.open {
+    display: grid;
   }
   .site-header nav a {
     white-space: nowrap;
+    padding: 0.65rem;
   }
   .card-grid,
   .filters,
@@ -778,7 +861,8 @@ textarea {
   .studio-grid,
   .form-grid,
   .question-editor,
-  .local-list article {
+  .local-list article,
+  .source-browser-grid {
     grid-template-columns: 1fr;
   }
   .studio-outline {

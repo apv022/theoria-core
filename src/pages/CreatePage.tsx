@@ -456,16 +456,112 @@ export default function CreatePage() {
               + Assessment
             </button>
           </div>
-          <details className="card">
-            <summary>MCF source preview</summary>
-            <pre className="source-preview">
-              {new TextDecoder().decode(
-                source.files.find((file) => file.path === "manifest.yaml")?.data,
-              )}
-            </pre>
-          </details>
+          <SourcePreview files={source.files} />
         </div>
       </section>
+    </div>
+  );
+}
+
+function SourcePreview({ files }: { files: VirtualFile[] }) {
+  const [selectedPath, setSelectedPath] = useState("manifest.yaml");
+  const directories = useMemo(() => {
+    const result = new Set<string>();
+    files.forEach((file) => {
+      const parts = file.path.split("/");
+      parts.slice(0, -1).forEach((_, index) => result.add(parts.slice(0, index + 1).join("/")));
+    });
+    return result;
+  }, [files]);
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set(directories));
+  const selected = files.find((file) => file.path === selectedPath) ?? files[0];
+  const entries = useMemo(() => {
+    const paths = new Set<string>([...files.map((file) => file.path), ...directories]);
+    return [...paths].sort((a, b) => {
+      const aDir = directories.has(a);
+      const bDir = directories.has(b);
+      return Number(bDir) - Number(aDir) || a.localeCompare(b, undefined, { numeric: true });
+    });
+  }, [directories, files]);
+  const visible = entries.filter((path) => {
+    const parts = path.split("/");
+    return parts
+      .slice(0, -1)
+      .every((_, index) => expanded.has(parts.slice(0, index + 1).join("/")));
+  });
+  const toggleDirectory = (path: string) =>
+    setExpanded((current) => {
+      const next = new Set(current);
+      if (next.has(path)) next.delete(path);
+      else next.add(path);
+      return next;
+    });
+  return (
+    <section className="source-browser card" aria-label="MCF source preview">
+      <div className="section-heading">
+        <p className="eyebrow">Source package</p>
+        <h2>Browse source files</h2>
+        <p className="muted">{files.length} files · directories before files</p>
+      </div>
+      <div className="source-browser-grid">
+        <div className="source-tree" role="tree" aria-label="Course source files">
+          {visible.map((path) => {
+            const directory = directories.has(path);
+            const depth = path.split("/").length - 1;
+            return directory ? (
+              <button
+                className="source-tree-entry"
+                style={{ paddingLeft: `${0.5 + depth * 1}rem` }}
+                key={path}
+                role="treeitem"
+                aria-expanded={expanded.has(path)}
+                onClick={() => toggleDirectory(path)}
+              >
+                {expanded.has(path) ? "⌄" : "›"} {path.split("/").pop()}/
+              </button>
+            ) : (
+              <button
+                className={`source-tree-entry ${selected?.path === path ? "selected" : ""}`}
+                style={{ paddingLeft: `${1.7 + depth * 1}rem` }}
+                key={path}
+                role="treeitem"
+                aria-selected={selected?.path === path}
+                onClick={() => setSelectedPath(path)}
+              >
+                {path.split("/").pop()}
+              </button>
+            );
+          })}
+        </div>
+        <SourceFilePreview file={selected} />
+      </div>
+    </section>
+  );
+}
+
+function SourceFilePreview({ file }: { file?: VirtualFile }) {
+  const url = useMemo(() => {
+    if (!file?.type?.startsWith("image/")) return undefined;
+    return URL.createObjectURL(new Blob([file.data as BlobPart], { type: file.type }));
+  }, [file]);
+  useEffect(() => {
+    return () => {
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [url]);
+  if (!file) return <p className="muted">No source files found.</p>;
+  const isText =
+    file.type?.startsWith("text/") || /\.(md|mcf|ya?ml|json|txt|css|js|ts|html)$/i.test(file.path);
+  return (
+    <div className="source-file-preview">
+      <strong>{file.path}</strong>
+      {url ? (
+        <img src={url} alt={`Preview of ${file.path}`} />
+      ) : isText ? (
+        <pre>{new TextDecoder().decode(file.data)}</pre>
+      ) : (
+        <p className="muted">Binary file · {file.data.byteLength.toLocaleString()} bytes</p>
+      )}
     </div>
   );
 }

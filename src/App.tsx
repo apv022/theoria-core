@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Link, NavLink, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { DiscoverPage } from "./pages/DiscoverPage";
@@ -42,6 +42,24 @@ function ThemeButton() {
 
 export function App() {
   const [storageBlocked, setStorageBlocked] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
   useEffect(() => {
     const blocked = () => setStorageBlocked(true);
     window.addEventListener("theoria-storage-blocked", blocked);
@@ -57,9 +75,23 @@ export function App() {
         <Link className="wordmark" to="/">
           <span>Θ</span> Theoria
         </Link>
-        <nav aria-label="Primary navigation">
+        <button
+          ref={menuButtonRef}
+          className="menu-button"
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span aria-hidden="true">☰</span>
+        </button>
+        <nav
+          id="primary-navigation"
+          className={menuOpen ? "open" : ""}
+          aria-label="Primary navigation"
+        >
           {navigation.map(([to, label]) => (
-            <NavLink key={to} to={to} end={to === "/"}>
+            <NavLink key={to} to={to} end={to === "/"} onClick={() => setMenuOpen(false)}>
               {label}
             </NavLink>
           ))}
