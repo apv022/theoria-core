@@ -33,7 +33,18 @@ export default function CreatePage() {
   const [dragged, setDragged] = useState<number>();
   useEffect(() => {
     void settingsStore.get<CourseDraft>("authoring-draft").then((saved) => {
-      if (saved) setDraft(saved);
+      if (saved) {
+        const next = clone(saved);
+        next.chapters.forEach((item) =>
+          item.lessons.forEach((currentLesson) =>
+            currentLesson.activities.forEach((activity) => {
+              if (activity.type === "notes" && activity.title === "Learn")
+                activity.title = "Reading";
+            }),
+          ),
+        );
+        setDraft(next);
+      }
     });
   }, []);
   const source = useMemo(() => generateSource(draft), [draft]);
@@ -76,7 +87,7 @@ export default function CreatePage() {
               {
                 id: "new-lesson-notes",
                 type: "notes",
-                title: "Learn",
+            title: "Reading",
                 content: "Write lesson notes here.",
                 questions: [],
               },
@@ -102,7 +113,7 @@ export default function CreatePage() {
           {
             id: `${id}-notes`,
             type: "notes",
-            title: "Learn",
+            title: "Reading",
             content: "Write lesson notes here.",
             questions: [],
           },
@@ -150,7 +161,7 @@ export default function CreatePage() {
           next.activities.map((item) => item.id),
         ),
         type,
-        title: type === "notes" ? "Learn" : type === "practice" ? "Practice" : "Assessment",
+        title: type === "notes" ? "Reading" : type === "practice" ? "Practice" : "Assessment",
         content: type === "notes" ? "Write content here." : "",
         passingScore: type === "assessment" ? 0.7 : undefined,
         questions: [],
@@ -221,6 +232,7 @@ export default function CreatePage() {
       <section className="studio-grid">
         <aside className="studio-outline card">
           <h2>Structure</h2>
+          <p className="muted">Choose a chapter, then arrange its lessons.</p>
           <div className="chapter-tabs">
             {draft.chapters.map((item, index) => (
               <button
@@ -235,16 +247,18 @@ export default function CreatePage() {
               </button>
             ))}
           </div>
-          <button className="text-button" onClick={addChapter}>
-            + Chapter
-          </button>
-          <button
-            className="text-button danger"
-            disabled={draft.chapters.length <= 1}
-            onClick={() => deleteChapter(chapterIndex)}
-          >
-            Delete chapter
-          </button>
+          <div className="structure-actions">
+            <button className="text-button" onClick={addChapter}>
+              + Chapter
+            </button>
+            <button
+              className="text-button danger"
+              disabled={draft.chapters.length <= 1}
+              onClick={() => deleteChapter(chapterIndex)}
+            >
+              Delete chapter
+            </button>
+          </div>
           <ol>
             {chapter.lessons.map((item, index) => (
               <li
@@ -535,11 +549,7 @@ function SourcePreview({ files }: { files: VirtualFile[] }) {
   const selected = files.find((file) => file.path === selectedPath) ?? files[0];
   const entries = useMemo(() => {
     const paths = new Set<string>([...files.map((file) => file.path), ...directories]);
-    return [...paths].sort((a, b) => {
-      const aDir = directories.has(a);
-      const bDir = directories.has(b);
-      return Number(bDir) - Number(aDir) || a.localeCompare(b, undefined, { numeric: true });
-    });
+    return [...paths].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   }, [directories, files]);
   const visible = entries.filter((path) => {
     const parts = path.split("/");

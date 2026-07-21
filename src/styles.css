@@ -612,14 +612,17 @@ textarea {
   top: 6rem;
   display: grid;
   gap: 1rem;
+  align-content: start;
+  padding: 1.25rem;
 }
 .studio-outline h2 {
   font-size: 1.5rem;
 }
 .chapter-tabs {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 0.35rem;
+  max-height: 14rem;
+  overflow: auto;
 }
 .chapter-tabs button,
 .studio-outline li button {
@@ -630,27 +633,63 @@ textarea {
   cursor: pointer;
 }
 .chapter-tabs button {
-  padding: 0.45rem;
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid transparent;
+  text-align: left;
 }
 .chapter-tabs button.current,
 .studio-outline li button.current {
   background: var(--soft);
   color: var(--text);
 }
+.chapter-tabs button.current {
+  border-color: var(--sage);
+  box-shadow: inset 3px 0 var(--sage);
+}
+.structure-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-block: 0.25rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
 .studio-outline ol {
   display: grid;
   gap: 0.25rem;
   margin: 0;
-  padding-left: 1.4rem;
+  padding: 0;
+  list-style: none;
 }
 .studio-outline li {
-  padding-left: 0.2rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.2rem;
+  align-items: center;
+  padding: 0.15rem 0;
   cursor: grab;
 }
 .studio-outline li button:first-child {
-  width: calc(100% - 2rem);
+  width: 100%;
+  min-width: 0;
   padding: 0.5rem;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.studio-outline li > button:not(:first-child) {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.studio-outline li > button:not(:first-child):hover {
+  background: var(--soft);
+  color: var(--text);
 }
 .form-grid {
   display: grid;
@@ -697,7 +736,7 @@ textarea {
 }
 .source-browser-grid {
   display: grid;
-  grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr);
+  grid-template-columns: minmax(14rem, 0.42fr) minmax(0, 1fr);
   gap: 1rem;
   min-width: 0;
 }
@@ -705,20 +744,26 @@ textarea {
   display: grid;
   align-content: start;
   gap: 0.15rem;
-  max-height: 30rem;
+  max-height: 34rem;
   overflow: auto;
-  padding: 0.4rem;
+  padding: 0.5rem;
   border: 1px solid var(--border);
   border-radius: 0.5rem;
+  background: var(--canvas);
 }
 .source-tree-entry {
-  min-width: max-content;
+  display: block;
+  width: 100%;
+  min-width: 0;
   padding-block: 0.4rem;
   border: 0;
   border-radius: 0.35rem;
   background: transparent;
   color: var(--text);
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }
 .source-tree-entry:hover,
@@ -727,6 +772,11 @@ textarea {
 }
 .source-file-preview {
   min-width: 0;
+  min-height: 20rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--canvas);
 }
 .source-file-preview > strong {
   display: block;

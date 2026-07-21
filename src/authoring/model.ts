@@ -212,7 +212,7 @@ export function initialDraft(): CourseDraft {
               {
                 id: "welcome-notes",
                 type: "notes",
-                title: "Learn",
+                title: "Reading",
                 content: "# Welcome\n\nStart writing your lesson here.",
                 questions: [],
               },
