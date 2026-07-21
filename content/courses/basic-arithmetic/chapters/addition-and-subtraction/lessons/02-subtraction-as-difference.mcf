@@ -15,7 +15,7 @@ title: Learn
 
 # Subtraction as Difference
 
-![Lesson image for Subtraction as Difference](https://commons.wikimedia.org/wiki/Special:FilePath/Abacus_2.jpg)
+![Regrouping 84 as seven tens and fourteen ones before subtracting 29](../../../assets/images/subtraction.jpg)
 
 Subtraction can mean taking away or comparing two amounts. Regrouping exchanges one larger place-value unit for ten smaller units.
 
@@ -25,7 +25,9 @@ Regrouping is often called borrowing, but “renaming” is more accurate: no qu
 
 Subtraction also carries meaning in context. A difference between temperatures, a remaining budget, and a change in population may all use subtraction but ask different questions. State what each number represents before choosing an algorithm.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Regroup once: 14 minus 9 is 5, then 7 minus 2 is 5."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Regroup once: 14 minus 9 is 5, then 7 minus 2 is 5."
 points: 1
 required: true
 ```

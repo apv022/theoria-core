@@ -15,7 +15,7 @@ title: Learn
 
 # Algorithms Before Computers
 
-![Lesson image for Algorithms Before Computers](https://commons.wikimedia.org/wiki/Special:FilePath/Al-Khwarizmi.jpg)
+![Flowchart showing input, an ordered rule, and a result](../../../assets/images/algorithms.jpg)
 
 An algorithm is a repeatable procedure for solving a problem. Recipes, arithmetic methods, and logical rules existed long before electronic machines.
 
@@ -25,7 +25,9 @@ This history matters because it separates computation from the machine that exec
 
 The portrait is a modern representation rather than a photograph of al-Khwarizmi. That is a useful warning about historical images: illustrations can communicate an idea while carrying little direct evidence about a person’s appearance.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://computerhistory.org/blog/the-neverending-quest-for-firsts/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://computerhistory.org/blog/the-neverending-quest-for-firsts/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Computer science studies information and computation, not only physical devices."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Computer science studies information and computation, not only physical devices."
 points: 1
 required: true
 ```

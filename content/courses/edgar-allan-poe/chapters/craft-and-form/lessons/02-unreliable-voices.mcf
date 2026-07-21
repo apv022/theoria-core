@@ -15,7 +15,7 @@ title: Learn
 
 # Unreliable Voices
 
-![Lesson image for Unreliable Voices](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_house_in_Baltimore.jpg)
+![Contrast between a narrator’s claims and textual evidence](../../../assets/images/unreliable-voices.jpg)
 
 Many Poe narrators speak with confidence while revealing fear, obsession, or contradiction. Readers must distinguish a narrator’s claim from the story’s evidence.
 
@@ -25,7 +25,9 @@ A careful reading asks three questions. What does the narrator directly observe?
 
 Poe’s technique remains influential because it turns narration into a problem. The reader is not only asking what happened; the reader is evaluating the instrument that reports what happened. That is a useful skill beyond literature: sources, witnesses, interfaces, and persuasive arguments all have points of view.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://poemuseum.org/poes-complete-works/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://poemuseum.org/poes-complete-works/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "A close reader asks what the narrator notices, avoids, and repeats."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "A close reader asks what the narrator notices, avoids, and repeats."
 points: 1
 required: true
 ```

@@ -100,5 +100,6 @@ export function richHtml(source: string, lesson: Lesson, assets: AssetUrls) {
       "rel",
       "class",
     ],
+    ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto|#|blob):|[^a-z]|[a-z+.-]+(?:[^a-z+.-]|$))/i,
   });
 }

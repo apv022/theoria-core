@@ -15,7 +15,7 @@ title: Learn
 
 # Reading Numbers
 
-![Lesson image for Reading Numbers](https://commons.wikimedia.org/wiki/Special:FilePath/Chinese_abacus.jpg)
+![Place-value chart for the number 4,582](../../../assets/images/reading-numbers.jpg)
 
 A digit has a value based on its place. In 4,582, the 5 represents five hundreds, not simply five.
 
@@ -25,7 +25,9 @@ An abacus makes place value tangible. Beads can stand for units in columns, and 
 
 Try decomposing a number in two ways: 4,582 = 4,000 + 500 + 80 + 2, and 4,582 = 45 hundreds + 82 ones. Both descriptions preserve the same quantity. Flexible representations are the foundation for estimation, written algorithms, decimals, and later algebra.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Place value lets a small set of symbols represent very large quantities."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Place value lets a small set of symbols represent very large quantities."
 points: 1
 required: true
 ```

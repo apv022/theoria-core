@@ -15,7 +15,7 @@ title: Learn
 
 # Multiplication as Equal Groups
 
-![Lesson image for Multiplication as Equal Groups](https://commons.wikimedia.org/wiki/Special:FilePath/Multiplication_table_0_to_12.jpg)
+![Six-by-seven dot array showing 42 objects](../../../assets/images/multiplication.jpg)
 
 Multiplication describes equal groups. For example, $4 \times 6$ means four groups of six.
 
@@ -29,7 +29,9 @@ Fluency means choosing efficient strategies accurately and explaining them. If a
 
 **Video companion.** This classroom lesson models equal groups, arrays, multiplication, and division. Watch for representations that help explain why the two operations are related.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -63,9 +65,9 @@ passing_score: 1
 id: multiplication-assessment-check
 type: true_false
 prompt: "Use known facts and patterns to build fluency."
-answer: false
+answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Known facts, arrays, and number patterns are useful ways to build multiplication fluency."
 points: 1
 required: true
 ```

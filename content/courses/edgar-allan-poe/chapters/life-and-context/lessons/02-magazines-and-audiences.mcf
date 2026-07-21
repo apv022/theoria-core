@@ -15,7 +15,7 @@ title: Learn
 
 # Magazines and Audiences
 
-![Lesson image for Magazines and Audiences](https://commons.wikimedia.org/wiki/Special:FilePath/Graham%27s_Magazine_January_1852.jpg)
+![Three nineteenth-century magazine layouts representing Poe’s print marketplace](../../../assets/images/magazines-and-audiences.jpg)
 
 Nineteenth-century magazines circulated poems, criticism, reviews, and serialized fiction. Their speed and competition shaped Poe’s sharp critical voice.
 
@@ -25,7 +25,9 @@ The nineteenth-century magazine also changed reading itself. A poem could reach 
 
 The periodical image in this lesson helps us remember that literature has infrastructure. Writers need printers, editors, distributors, readers, and money. Studying that infrastructure makes Poe less like an isolated genius and more like a professional working inside a competitive media system.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.loc.gov/item/today-in-history/january-19/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.loc.gov/item/today-in-history/january-19/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -59,9 +61,9 @@ passing_score: 1
 id: magazines-and-audiences-assessment-check
 type: true_false
 prompt: "Periodicals connected writers to large audiences before modern mass media."
-answer: false
+answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Nineteenth-century periodicals connected writers such as Poe with large reading audiences."
 points: 1
 required: true
 ```

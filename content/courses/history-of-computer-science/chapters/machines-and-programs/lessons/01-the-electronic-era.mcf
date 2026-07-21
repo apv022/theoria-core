@@ -15,7 +15,7 @@ title: Learn
 
 # The Electronic Era
 
-![Lesson image for The Electronic Era](https://commons.wikimedia.org/wiki/Special:FilePath/Two_women_operating_ENIAC.gif)
+![Two operators standing before an early room-sized electronic computer](../../../assets/images/eniac-era.jpg)
 
 Early electronic computers such as ENIAC filled rooms and were programmed through switches, cables, and detailed procedures. Their scale made computation visible as infrastructure.
 
@@ -29,7 +29,9 @@ Notice how the photograph presents human bodies beside an enormous technical sys
 
 **Video companion.** This lecture surveys the Analytical Engine, Ada Lovelace, ENIAC, and the transition toward stored-program computing. Treat it as a broad timeline companion; this course adds detail about the women who operated ENIAC.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://womenshistory.si.edu/human-computer-project). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://womenshistory.si.edu/human-computer-project)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -65,7 +67,7 @@ type: true_false
 prompt: "Early computers were large, expensive, and operated by teams."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Early computers were large, expensive, and operated by teams."
 points: 1
 required: true
 ```

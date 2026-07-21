@@ -57,6 +57,30 @@ export const catalog: CatalogCourse[] = [
     addedAt: "2026-07-19",
     cover: "assets/images/cover.svg",
   },
+  {
+    id: "minimal-course",
+    bundleId: "minimal",
+    title: "A Minimal MCF Course",
+    description: "The smallest useful MCF 1.0 package.",
+    author: "MCF Project",
+    subject: "Foundations",
+    difficulty: "Beginner",
+    featured: false,
+    addedAt: "2026-07-20",
+    cover: "",
+  },
+  {
+    id: "mcf-showcase",
+    bundleId: "showcase",
+    title: "MCF 1.0 Showcase",
+    description: "A tour of every MCF 1.0 activity and question type.",
+    author: "MCF Project",
+    subject: "Foundations",
+    difficulty: "Intermediate",
+    featured: true,
+    addedAt: "2026-07-20",
+    cover: "assets/images/cover.svg",
+  },
 ];
 
 type SerializedBundle = {
@@ -68,11 +92,34 @@ function decodeBase64(value: string): Uint8Array {
   return Uint8Array.from(binary, (character) => character.charCodeAt(0));
 }
 
+function mediaType(path: string) {
+  const extension = path.split(".").pop()?.toLowerCase();
+  return (
+    {
+      svg: "image/svg+xml",
+      png: "image/png",
+      jpg: "image/jpeg",
+      jpeg: "image/jpeg",
+      webp: "image/webp",
+      gif: "image/gif",
+      mp3: "audio/mpeg",
+      wav: "audio/wav",
+      ogg: "audio/ogg",
+      mp4: "video/mp4",
+      webm: "video/webm",
+      m4v: "video/mp4",
+    } as Record<string, string>
+  )[extension ?? ""];
+}
+
 export async function loadBundledSource(id: string): Promise<CourseSource> {
-  const response = await fetch(`${import.meta.env.BASE_URL}bundled/${encodeURIComponent(id)}.json`);
+  const meta = catalog.find((course) => course.id === id);
+  const bundleId = meta?.bundleId ?? id;
+  const response = await fetch(
+    `${import.meta.env.BASE_URL}bundled/${encodeURIComponent(bundleId)}.json`,
+  );
   if (!response.ok) throw new Error(`Bundled course ${id} could not be loaded.`);
   const bundle = (await response.json()) as SerializedBundle;
-  const meta = catalog.find((course) => course.id === id);
   if (!meta) throw new Error(`Unknown bundled course ${id}.`);
   return {
     id,
@@ -81,6 +128,7 @@ export async function loadBundledSource(id: string): Promise<CourseSource> {
     updatedAt: meta.addedAt,
     files: bundle.files.map((file) => ({
       path: file.path,
+      type: mediaType(file.path),
       data:
         file.encoding === "utf8" ? new TextEncoder().encode(file.data) : decodeBase64(file.data),
     })),

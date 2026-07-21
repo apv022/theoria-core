@@ -15,7 +15,7 @@ title: Learn
 
 # Division as Sharing
 
-![Lesson image for Division as Sharing](https://commons.wikimedia.org/wiki/Special:FilePath/Division_by_sharing.svg)
+![Forty-eight counters shared equally among six groups](../../../assets/images/division.jpg)
 
 Division shares a quantity equally or asks how many groups fit. Division and multiplication are inverse operations.
 
@@ -25,7 +25,9 @@ A remainder appears when a quantity cannot be partitioned evenly. In a real situ
 
 Draw a model before calculating when the story is unfamiliar. An array, equal groups, number line, or area model can reveal which number is the dividend, divisor, and quotient. Then estimate: 48 divided by 6 should be near 50 divided by 5, or about 10, so 8 is reasonable. Check with multiplication.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Since $6 \\times 8 = 48$, $48 \\div 6 = 8$."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Since $6 \\times 8 = 48$, $48 \\div 6 = 8$."
 points: 1
 required: true
 ```

@@ -15,7 +15,7 @@ title: Learn
 
 # Dupin’s Method
 
-![Lesson image for Dupin’s Method](https://commons.wikimedia.org/wiki/Special:FilePath/The_Murders_in_the_Rue_Morgue_illustration.jpg)
+![Clues connected across documents with a magnifying glass](../../../assets/images/dupins-method.jpg)
 
 Poe’s C. Auguste Dupin stories helped establish detective fiction by centering observation, inference, and the reconstruction of events.
 
@@ -25,7 +25,9 @@ The detective story creates a contract: the reader expects that evidence will ma
 
 When you read a mystery, keep a two-column record: observable clue and proposed explanation. That small habit protects against accepting a clever theory before the evidence supports it.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://poemuseum.org/tag/short-story/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://poemuseum.org/tag/short-story/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Poe’s detective stories made reasoning itself part of the drama."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Poe’s detective stories made reasoning itself part of the drama."
 points: 1
 required: true
 ```

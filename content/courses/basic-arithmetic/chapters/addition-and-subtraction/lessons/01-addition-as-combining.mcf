@@ -15,7 +15,7 @@ title: Learn
 
 # Addition as Combining
 
-![Lesson image for Addition as Combining](https://commons.wikimedia.org/wiki/Special:FilePath/Counting_board.jpg)
+![Base-ten model showing 37 plus 25 equals 62](../../../assets/images/addition.jpg)
 
 Addition combines quantities. Align place values carefully: ones with ones, tens with tens, and so on.
 
@@ -25,7 +25,9 @@ Models make this visible. Ten single counters can be exchanged for one ten-stick
 
 An answer should also be checked. Since 37 is about 40 and 25 is about 30, the total should be near 70. The exact answer 62 is plausible; 620 is not. Strong arithmetic joins procedure, representation, estimation, and explanation.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.nctm.org/Standards-and-Positions/Principles-and-Standards/Number-and-Operations/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Thirty-seven plus twenty-five is sixty-two."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Thirty-seven plus twenty-five is sixty-two."
 points: 1
 required: true
 ```

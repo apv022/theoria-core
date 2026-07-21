@@ -15,7 +15,7 @@ title: Learn
 
 # A Restless Life
 
-![Lesson image for A Restless Life](https://commons.wikimedia.org/wiki/Special:FilePath/Edgar_Allan_Poe_2_retouched_and_transparent_bg.png)
+![Stylized portrait and timeline of Edgar Allan Poe’s life and literary work](../../../assets/images/a-restless-life.jpg)
 
 Edgar Allan Poe lived from 1809 to 1849 and worked as a poet, editor, critic, and fiction writer. His career unfolded in a rapidly changing American print culture.
 
@@ -25,7 +25,9 @@ Poe helped shape several literary forms: Gothic tales, psychological horror, det
 
 The portrait is not Poe himself in an uncomplicated sense. It is an image made by a photographer, reproduced by publishers, and now circulated by archives. Like a biography, it frames a person for an audience.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.poetryfoundation.org/poets/edgar-allan-poe). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.poetryfoundation.org/poets/edgar-allan-poe)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Poe wrote in several forms and depended on magazines for much of his professional life."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Poe wrote in several forms and depended on magazines for much of his professional life."
 points: 1
 required: true
 ```

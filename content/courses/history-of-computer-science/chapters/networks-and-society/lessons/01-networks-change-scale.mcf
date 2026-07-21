@@ -15,7 +15,7 @@ title: Learn
 
 # Networks Change Scale
 
-![Lesson image for Networks Change Scale](https://commons.wikimedia.org/wiki/Special:FilePath/Internet_map_1024.jpg)
+![Network graph linking independent systems through shared protocols](../../../assets/images/internet.jpg)
 
 Networks connect computers, people, and services. The internet made computation less about a single machine and more about shared protocols and distributed systems.
 
@@ -25,7 +25,9 @@ Distributed systems also introduce new problems. Messages can be delayed, duplic
 
 When you use a web app, ask what happens between clicking a button and seeing a result. That question connects computer history to contemporary literacy: data has a route, a protocol, a host, and a cost.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.computerhistory.org/internethistory/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.computerhistory.org/internethistory/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -59,9 +61,9 @@ passing_score: 1
 id: internet-assessment-check
 type: true_false
 prompt: "A protocol is an agreed way for systems to exchange information."
-answer: false
+answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "A protocol is an agreed set of rules that lets systems exchange information."
 points: 1
 required: true
 ```

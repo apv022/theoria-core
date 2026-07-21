@@ -14,9 +14,23 @@ if (index !== fallback) throw new Error("GitHub Pages fallback does not match in
 if (manifest.display !== "standalone" || !manifest.icons?.length)
   throw new Error("PWA manifest is incomplete.");
 
-const bundles = (await readdir(new URL("bundled/", root))).filter((file) => file.endsWith(".json"));
-if (bundles.length !== 5)
-  throw new Error(`Expected five bundled courses; found ${bundles.length}.`);
+const bundles = (await readdir(new URL("bundled/", root)))
+  .filter((file) => file.endsWith(".json"))
+  .map((file) => file.replace(/\.json$/, ""))
+  .sort();
+const expectedBundles = [
+  "ancient-egypt",
+  "basic-arithmetic",
+  "calculus-i",
+  "edgar-allan-poe",
+  "history-of-computer-science",
+  "minimal",
+  "showcase",
+];
+if (JSON.stringify(bundles) !== JSON.stringify(expectedBundles))
+  throw new Error(
+    `Expected bundled courses ${expectedBundles.join(", ")}; found ${bundles.join(", ")}.`,
+  );
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -36,5 +50,5 @@ for (const file of await walk(root.pathname)) {
 }
 
 console.log(
-  "Static export verified: SPA fallback, PWA, five course bundles, and no server secrets.",
+  "Static export verified: SPA fallback, PWA, seven course bundles, and no server secrets.",
 );

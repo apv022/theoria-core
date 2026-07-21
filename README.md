@@ -48,7 +48,8 @@ Use `npm run dev` for rapid source development. Verify the production PWA, servi
 install prompt, and offline behavior with `npm run build && npm run preview`, then open the preview
 URL (normally `http://localhost:4173`). The dev server is not the production PWA.
 
-1. Open Discover, choose Basic Arithmetic, complete notes, and reload to show saved progress.
+1. Open Discover, confirm the seven canonical MCF sample courses and their cover thumbnails, then
+   choose Basic Arithmetic, complete notes, and reload to show saved progress.
 2. Open Create, edit the course and lesson, add an assessment question, then preview it.
 3. Export its MCF ZIP, open Compile, import the ZIP, validate it, and preview it in Theoria.
 4. Download the compiled Theoria ZIP, then show My Courses and its browser-local storage notice.

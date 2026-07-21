@@ -23,7 +23,7 @@ export function DiscoverPage() {
       <header className="page-header">
         <p className="eyebrow">Course library</p>
         <h1>Discover courses</h1>
-        <p className="lede">Explore five complete courses built with MCF 1.0.</p>
+        <p className="lede">Explore seven complete courses built with MCF 1.0.</p>
       </header>
       <div className="filters card">
         <label>

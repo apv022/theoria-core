@@ -15,7 +15,7 @@ title: Learn
 
 # Daily Life and Work
 
-![Lesson image for Daily Life and Work](https://commons.wikimedia.org/wiki/Special:FilePath/Model_of_bakery_and_brewery_from_the_tomb_of_Meketre.jpg)
+![Lesson image for Daily Life and Work](../../../assets/images/daily-life.jpg)
 
 Most people worked in agriculture and crafts. Homes, food, family ties, and local religious life reveal a society far broader than its monuments.
 
@@ -25,7 +25,9 @@ Food and labor were connected to environment and status. Grain supported bread a
 
 Source note: the World History Encyclopedia overview is a starting point, while museum objects let learners ask what kind of evidence survives and who commissioned it.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.worldhistory.org/article/933/daily-life-in-ancient-egypt/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.worldhistory.org/article/933/daily-life-in-ancient-egypt/)
+>
+> **Figure.** Local historical image included with the course; source details are listed in `ATTRIBUTION.md`.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Monuments survive spectacularly, but ordinary labor sustained them and fed the kingdom."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Monuments survive spectacularly, but ordinary labor sustained them and fed the kingdom."
 points: 1
 required: true
 ```

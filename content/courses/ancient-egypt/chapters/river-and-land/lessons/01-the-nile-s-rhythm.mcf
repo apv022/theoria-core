@@ -15,7 +15,7 @@ title: Learn
 
 # The Nile’s Rhythm
 
-![Lesson image for The Nile’s Rhythm](https://commons.wikimedia.org/wiki/Special:FilePath/Nile_River_and_Delta_from_orbit.jpg)
+![Lesson image for The Nile’s Rhythm](../../../assets/images/nile-rhythm.jpg)
 
 The Nile was not simply a backdrop. Its annual flood renewed fields, shaped travel, and helped make a long, connected kingdom possible.
 
@@ -27,7 +27,9 @@ That relationship also shaped political imagination. A kingdom that coordinated 
 
 The linked museum video offers a visual tour of objects rather than a substitute for the lesson. As you watch, notice how often river plants, boats, crops, and movement appear in the material record.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.britannica.com/place/Nile-River). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.britannica.com/place/Nile-River)
+>
+> **Figure.** Local historical image included with the course; source details are listed in `ATTRIBUTION.md`.
 
 :::mcf-end
 
@@ -63,7 +65,7 @@ type: true_false
 prompt: "Egyptian farming followed a seasonal rhythm of flood, planting, and harvest. Settlements, trade, and political power clustered along the river."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Egyptian farming followed a seasonal rhythm of flood, planting, and harvest. Settlements, trade, and political power clustered along the river."
 points: 1
 required: true
 ```

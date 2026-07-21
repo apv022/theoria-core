@@ -2,9 +2,7 @@ mcf: "1.0"
 id: history-of-computer-science
 title: "A Brief History of Computer Science"
 language: en
-description:
-  "From algorithms and early machines to networks, programming languages, and the questions
-  computing raises today."
+description: "From algorithms and early machines to networks, programming languages, and the questions computing raises today."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0

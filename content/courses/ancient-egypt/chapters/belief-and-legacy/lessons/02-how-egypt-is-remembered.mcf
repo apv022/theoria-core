@@ -15,7 +15,7 @@ title: Learn
 
 # How Egypt Is Remembered
 
-![Lesson image for How Egypt Is Remembered](https://commons.wikimedia.org/wiki/Special:FilePath/Temple_of_Hatshepsut_2010.jpg)
+![Lesson image for How Egypt Is Remembered](../../../assets/images/egypt-today.jpg)
 
 Archaeology, museums, language study, and modern Egyptian scholarship keep revising what we know. Ancient Egypt is not a frozen mystery; it is a field of evidence and debate.
 
@@ -25,7 +25,9 @@ The modern image of Egypt has often been shaped by Egyptomania—European and Am
 
 The Temple of Hatshepsut is useful precisely because it invites multiple questions: how did the monument present a woman ruler, what landscape made it meaningful, how has it been conserved, and how do present-day visitors encounter it? Historical knowledge is strongest when it remains open to better evidence.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.metmuseum.org/toah/hd/egyp/hd_egyp.htm). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.metmuseum.org/toah/hd/egyp/hd_egyp.htm)
+>
+> **Figure.** Local historical image included with the course; source details are listed in `ATTRIBUTION.md`.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Responsible history asks where an object came from, who studied it, and what evidence supports a claim."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Responsible history asks where an object came from, who studied it, and what evidence supports a claim."
 points: 1
 required: true
 ```

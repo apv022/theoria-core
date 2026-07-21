@@ -1,14 +1,12 @@
-mcf: "1.0"
+mcf: '1.0'
 id: calculus-i
-title: "Calculus I: Change and Accumulation"
+title: 'Calculus I: Change and Accumulation'
 language: en
-description:
-  "A complete first-semester calculus course covering functions, limits, derivatives, integrals, and
-  applications."
+description: 'A complete first-semester calculus course covering functions, limits, derivatives, integrals, and applications.'
 authors:
-  - "MCF Project"
+  - 'MCF Project'
 license: CC-BY-4.0
-version: "1.0.0"
+version: '1.0.0'
 cover: assets/images/cover.svg
 chapters:
   - source: chapters/functions

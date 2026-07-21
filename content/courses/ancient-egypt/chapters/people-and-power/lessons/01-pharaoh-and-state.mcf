@@ -15,7 +15,7 @@ title: Learn
 
 # Pharaoh and State
 
-![Lesson image for Pharaoh and State](https://commons.wikimedia.org/wiki/Special:FilePath/Colossi_of_Memnon_2017.jpg)
+![Lesson image for Pharaoh and State](../../../assets/images/pharaoh-state.jpg)
 
 The pharaoh was understood as a ruler with religious responsibilities. Officials, local communities, and temples made administration work in practice.
 
@@ -25,7 +25,9 @@ Royal imagery expressed an ideal of order, sometimes called *ma’at*: balance, 
 
 Look at the monumental photograph alongside the text. Scale is part of the argument: colossal statues communicate permanence and authority before a viewer reads a single inscription.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.worldhistory.org/Egyptian_Government/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.worldhistory.org/Egyptian_Government/)
+>
+> **Figure.** Local historical image included with the course; source details are listed in `ATTRIBUTION.md`.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Ancient Egypt was not run by one person alone. A network of administrators gathered resources and organized labor."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Ancient Egypt was not run by one person alone. A network of administrators gathered resources and organized labor."
 points: 1
 required: true
 ```

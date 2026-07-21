@@ -2,9 +2,7 @@ mcf: "1.0"
 id: edgar-allan-poe
 title: "Edgar Allan Poe: Sound, Shadow, and Story"
 language: en
-description:
-  "A short course on Poe’s life, poetic techniques, and lasting influence on the Gothic and
-  detective traditions."
+description: "A short course on Poe’s life, poetic techniques, and lasting influence on the Gothic and detective traditions."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0

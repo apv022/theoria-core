@@ -2,9 +2,7 @@ mcf: "1.0"
 id: basic-arithmetic
 title: "Basic Arithmetic: Number Sense and Operations"
 language: en
-description:
-  "A friendly foundation in place value, addition, subtraction, multiplication, division, and
-  everyday problem solving."
+description: "A friendly foundation in place value, addition, subtraction, multiplication, division, and everyday problem solving."
 authors:
   - "Theoria Learning Studio"
 license: CC-BY-4.0

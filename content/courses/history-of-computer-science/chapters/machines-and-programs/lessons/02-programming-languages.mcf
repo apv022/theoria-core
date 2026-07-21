@@ -15,7 +15,7 @@ title: Learn
 
 # Programming Languages
 
-![Lesson image for Programming Languages](https://commons.wikimedia.org/wiki/Special:FilePath/Grace_Hopper_and_UNIVAC.jpg)
+![Layers from machine code through assembly and high-level languages](../../../assets/images/languages.jpg)
 
 Programming languages let people express instructions at higher levels of abstraction. Compilers and interpreters translate those instructions into forms a machine can execute.
 
@@ -25,7 +25,9 @@ A compiler translates source code into another form, often machine code or an in
 
 Grace Hopper’s career helps make this social. Her work on compilers and COBOL was connected to a practical goal: make programming more accessible to people who thought in business and scientific terms rather than raw machine instructions. The image is a prompt to ask how tools change who gets to participate.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://computerhistory.org/timeline/software/). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://computerhistory.org/timeline/software/)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -61,7 +63,7 @@ type: true_false
 prompt: "Languages trade direct control for clarity, portability, and productivity."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "Languages trade direct control for clarity, portability, and productivity."
 points: 1
 required: true
 ```

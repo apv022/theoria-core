@@ -36,6 +36,7 @@ export interface CompilationRecord {
 }
 export interface CatalogCourse {
   id: string;
+  bundleId?: string;
   title: string;
   description: string;
   author: string;

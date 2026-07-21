@@ -1,7 +1,6 @@
 # Calculus I reference course
 
-This course is authored as portable MCF 1.0 source. It is intended as both a real learning resource
-and a conformance stress test.
+This course is authored as portable MCF 1.0 source. It is intended as both a real learning resource and a conformance stress test.
 
 ## Coverage
 
@@ -14,8 +13,7 @@ and a conformance stress test.
 - local SVG images
 - external YouTube provider reference
 
-The external video in the limits chapter requires internet access. All other authored content and
-images are local.
+The external video in the limits chapter requires internet access. All other authored content and images are local.
 
 The course declares `CC-BY-4.0` in `manifest.yaml`. Compile it from the repository root with:
 

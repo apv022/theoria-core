@@ -15,7 +15,7 @@ title: Learn
 
 # Sound in Poetry
 
-![Lesson image for Sound in Poetry](https://commons.wikimedia.org/wiki/Special:FilePath/The_Raven_Illustration_John_Tenniel.jpg)
+![Raven silhouette beside a repeating sound wave](../../../assets/images/sound-in-poetry.jpg)
 
 Poe cared intensely about sound: repetition, internal rhyme, and measured rhythm create mood before a reader has analyzed every image.
 
@@ -29,7 +29,9 @@ Try reading a stanza aloud, then mark repeated consonants and vowel sounds. The 
 
 **Video companion.** This seminar places The Raven in its nineteenth-century culture of sentiment and close reading. Compare its explanation of sound, repetition, and audience with your own annotations.
 
-> **Source and image note.** This lesson was prepared from [the linked research source](https://www.poetryfoundation.org/articles/69390/the-philosophy-of-composition). The image is a separate visual primary-source or historical illustration prompt; examine what it shows, what it leaves out, and who made or preserved it.
+> **Further reading.** [Research source](https://www.poetryfoundation.org/articles/69390/the-philosophy-of-composition)
+>
+> **Figure.** Original course illustration created to summarize the lesson concept.
 
 :::mcf-end
 
@@ -65,7 +67,7 @@ type: true_false
 prompt: "In poems such as The Raven, recurring sound helps make thought feel inescapable."
 answer: true
 hint: "Review the lesson summary."
-explanation: "The lesson explains this claim."
+explanation: "In poems such as The Raven, recurring sound helps make thought feel inescapable."
 points: 1
 required: true
 ```
