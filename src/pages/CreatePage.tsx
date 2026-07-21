@@ -111,6 +111,20 @@ export default function CreatePage() {
     );
     setLessonIndex(chapter.lessons.length);
   };
+  const deleteLesson = (index: number) => {
+    if (chapter.lessons.length <= 1) return;
+    if (!window.confirm(`Delete lesson “${chapter.lessons[index]?.title}”?`)) return;
+    editChapter((next) => next.lessons.splice(index, 1));
+    setLessonIndex((current) => Math.min(current, chapter.lessons.length - 2));
+  };
+  const deleteChapter = (index: number) => {
+    if (draft.chapters.length <= 1) return;
+    if (window.confirm(`Delete chapter “${draft.chapters[index]?.title}” and its lessons?`)) {
+      edit((next) => next.chapters.splice(index, 1));
+      setChapterIndex((current) => Math.min(current, draft.chapters.length - 2));
+      setLessonIndex(0);
+    }
+  };
   const duplicateLesson = (index: number) => {
     const original = chapter.lessons[index]!;
     const id = uniqueId(
@@ -160,6 +174,17 @@ export default function CreatePage() {
       next.media.push(...additions);
       if (cover && additions[0]) next.cover = additions[0].path;
     });
+  };
+  const removeAsset = (path: string) => {
+    edit((next) => {
+      next.media = next.media.filter((file) => file.path !== path);
+      if (next.cover === path) next.cover = undefined;
+    });
+  };
+  const copyAssetPath = (path: string) => {
+    const clipboard = navigator.clipboard;
+    if (!clipboard) return;
+    void clipboard.writeText(path).then(() => setStatus(`Copied ${path}`));
   };
   const persistNow = () =>
     Promise.all([localCourses.put(source), settingsStore.put("authoring-draft", draft)]).then(() =>
@@ -213,6 +238,13 @@ export default function CreatePage() {
           <button className="text-button" onClick={addChapter}>
             + Chapter
           </button>
+          <button
+            className="text-button danger"
+            disabled={draft.chapters.length <= 1}
+            onClick={() => deleteChapter(chapterIndex)}
+          >
+            Delete chapter
+          </button>
           <ol>
             {chapter.lessons.map((item, index) => (
               <li
@@ -241,6 +273,14 @@ export default function CreatePage() {
                   onClick={() => duplicateLesson(index)}
                 >
                   ⧉
+                </button>
+                <button
+                  className="danger"
+                  aria-label={`Delete ${item.title}`}
+                  disabled={chapter.lessons.length <= 1}
+                  onClick={() => deleteLesson(index)}
+                >
+                  ×
                 </button>
               </li>
             ))}
@@ -339,6 +379,40 @@ export default function CreatePage() {
               />
             </label>
           </section>
+          <section className="card stack asset-library">
+            <div className="section-heading">
+              <h2>Assets</h2>
+              <p className="muted">
+                Add reusable images, audio, and video here. Use the displayed path in lesson
+                Markdown or media references.
+              </p>
+            </div>
+            <label className="button secondary asset-upload">
+              Add assets
+              <input
+                className="visually-hidden"
+                multiple
+                accept="image/*,audio/*,video/*"
+                type="file"
+                onChange={(event) => void addMedia(event.target.files)}
+              />
+            </label>
+            {draft.media.length ? (
+              <div className="media-preview" aria-label="Course assets">
+                {draft.media.map((file) => (
+                  <MediaPreview
+                    file={file}
+                    isCover={file.path === draft.cover}
+                    key={file.path}
+                    onCopy={() => copyAssetPath(file.path)}
+                    onRemove={() => removeAsset(file.path)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="muted">No assets added yet.</p>
+            )}
+          </section>
           <section className="card form-grid">
             <h2>Chapter</h2>
             <label>
@@ -410,22 +484,6 @@ export default function CreatePage() {
                 }
               />
             </label>
-            <label className="wide">
-              Attach local media
-              <input
-                multiple
-                accept="image/*,audio/*,video/*"
-                type="file"
-                onChange={(event) => void addMedia(event.target.files)}
-              />
-            </label>
-            {draft.media.length ? (
-              <div className="wide media-preview" aria-label="Attached media">
-                {draft.media.map((file) => (
-                  <MediaPreview file={file} key={file.path} />
-                ))}
-              </div>
-            ) : null}
           </section>
           {lesson.activities.map((activity, activityIndex) => (
             <ActivityEditor
@@ -566,7 +624,17 @@ function SourceFilePreview({ file }: { file?: VirtualFile }) {
   );
 }
 
-function MediaPreview({ file }: { file: VirtualFile }) {
+function MediaPreview({
+  file,
+  isCover,
+  onCopy,
+  onRemove,
+}: {
+  file: VirtualFile;
+  isCover?: boolean;
+  onCopy?: () => void;
+  onRemove?: () => void;
+}) {
   const url = useMemo(
     () => URL.createObjectURL(new Blob([file.data as BlobPart], { type: file.type })),
     [file],
@@ -575,12 +643,42 @@ function MediaPreview({ file }: { file: VirtualFile }) {
     return () => URL.revokeObjectURL(url);
   }, [url]);
   const alt = file.path.split("/").pop() ?? "Attached media";
-  if (file.type?.startsWith("audio/")) return <audio controls src={url} />;
-  if (file.type?.startsWith("video/")) return <video controls src={url} />;
+  const details = (
+    <figcaption>
+      <code>{file.path}</code>
+      {isCover ? <span className="asset-badge">Cover</span> : null}
+      <span className="asset-actions">
+        {onCopy ? (
+          <button className="text-button" onClick={onCopy}>
+            Copy path
+          </button>
+        ) : null}
+        {onRemove ? (
+          <button className="text-button danger" onClick={onRemove}>
+            Remove
+          </button>
+        ) : null}
+      </span>
+    </figcaption>
+  );
+  if (file.type?.startsWith("audio/"))
+    return (
+      <figure>
+        {<audio controls src={url} />}
+        {details}
+      </figure>
+    );
+  if (file.type?.startsWith("video/"))
+    return (
+      <figure>
+        {<video controls src={url} />}
+        {details}
+      </figure>
+    );
   return (
     <figure>
       <img src={url} alt={alt} />
-      <figcaption>{alt}</figcaption>
+      {details}
     </figure>
   );
 }

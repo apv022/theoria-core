@@ -809,6 +809,32 @@ textarea {
   color: var(--muted);
   font-size: 0.75rem;
 }
+.asset-library {
+  min-width: 0;
+}
+.asset-upload {
+  width: fit-content;
+}
+.media-preview figcaption {
+  display: grid;
+  gap: 0.25rem;
+  overflow-wrap: anywhere;
+}
+.asset-badge {
+  width: fit-content;
+  padding: 0.1rem 0.45rem;
+  border-radius: 2rem;
+  background: var(--sage-soft);
+  color: var(--sage);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.asset-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
 .media-preview img,
 .media-preview video,
 .media-preview audio {
