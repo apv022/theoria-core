@@ -87,7 +87,7 @@ export default function CreatePage() {
               {
                 id: "new-lesson-notes",
                 type: "notes",
-            title: "Reading",
+                title: "Reading",
                 content: "Write lesson notes here.",
                 questions: [],
               },
@@ -122,11 +122,13 @@ export default function CreatePage() {
     );
     setLessonIndex(chapter.lessons.length);
   };
-  const deleteLesson = (index: number) => {
-    if (chapter.lessons.length <= 1) return;
-    if (!window.confirm(`Delete lesson “${chapter.lessons[index]?.title}”?`)) return;
-    editChapter((next) => next.lessons.splice(index, 1));
-    setLessonIndex((current) => Math.min(current, chapter.lessons.length - 2));
+  const deleteLesson = (chapterAt: number, index: number) => {
+    const selectedChapter = draft.chapters[chapterAt]!;
+    if (selectedChapter.lessons.length <= 1) return;
+    if (!window.confirm(`Delete lesson “${selectedChapter.lessons[index]?.title}”?`)) return;
+    edit((next) => next.chapters[chapterAt]!.lessons.splice(index, 1));
+    if (chapterAt === chapterIndex)
+      setLessonIndex((current) => Math.min(current, selectedChapter.lessons.length - 2));
   };
   const deleteChapter = (index: number) => {
     if (draft.chapters.length <= 1) return;
@@ -136,22 +138,24 @@ export default function CreatePage() {
       setLessonIndex(0);
     }
   };
-  const duplicateLesson = (index: number) => {
-    const original = chapter.lessons[index]!;
+  const duplicateLesson = (chapterAt: number, index: number) => {
+    const selectedChapter = draft.chapters[chapterAt]!;
+    const original = selectedChapter.lessons[index]!;
     const id = uniqueId(
       `${original.id}-copy`,
-      chapter.lessons.map((item) => item.id),
+      selectedChapter.lessons.map((item) => item.id),
     );
-    editChapter((next) => {
+    edit((next) => {
+      const target = next.chapters[chapterAt]!;
       const copy = clone(original);
       copy.id = id;
       copy.title += " copy";
       copy.activities.forEach((activity, activityIndex) => {
         activity.id = `${id}-${activity.type}-${activityIndex + 1}`;
       });
-      next.lessons.splice(index + 1, 0, copy);
+      target.lessons.splice(index + 1, 0, copy);
     });
-    setLessonIndex(index + 1);
+    if (chapterAt === chapterIndex) setLessonIndex(index + 1);
   };
   const addActivity = (type: ActivityType) =>
     editLesson((next) =>
@@ -233,18 +237,73 @@ export default function CreatePage() {
         <aside className="studio-outline card">
           <h2>Structure</h2>
           <p className="muted">Choose a chapter, then arrange its lessons.</p>
-          <div className="chapter-tabs">
-            {draft.chapters.map((item, index) => (
-              <button
-                className={index === chapterIndex ? "current" : ""}
-                key={item.id}
-                onClick={() => {
-                  setChapterIndex(index);
-                  setLessonIndex(0);
-                }}
-              >
-                {item.title}
-              </button>
+          <div className="structure-tree" role="tree" aria-label="Course structure">
+            {draft.chapters.map((item, chapterAt) => (
+              <div className="tree-chapter" key={item.id}>
+                <button
+                  className={`tree-chapter-button ${chapterAt === chapterIndex ? "current" : ""}`}
+                  role="treeitem"
+                  aria-expanded="true"
+                  onClick={() => {
+                    setChapterIndex(chapterAt);
+                    setLessonIndex(0);
+                  }}
+                >
+                  <span aria-hidden="true">⌄</span>
+                  <span>{item.title}</span>
+                </button>
+                <ol role="group">
+                  {item.lessons.map((lessonItem, index) => (
+                    <li
+                      draggable={chapterAt === chapterIndex}
+                      onDragStart={() => chapterAt === chapterIndex && setDragged(index)}
+                      onDragOver={(event) => event.preventDefault()}
+                      onDrop={() => {
+                        if (
+                          chapterAt !== chapterIndex ||
+                          dragged === undefined ||
+                          dragged === index
+                        )
+                          return;
+                        editChapter((next) => {
+                          const [moved] = next.lessons.splice(dragged, 1);
+                          next.lessons.splice(index, 0, moved!);
+                        });
+                        setLessonIndex(index);
+                        setDragged(undefined);
+                      }}
+                      key={lessonItem.id}
+                    >
+                      <button
+                        className={
+                          chapterAt === chapterIndex && index === lessonIndex ? "current" : ""
+                        }
+                        role="treeitem"
+                        onClick={() => {
+                          setChapterIndex(chapterAt);
+                          setLessonIndex(index);
+                        }}
+                      >
+                        {lessonItem.title}
+                      </button>
+                      <button
+                        aria-label={`Duplicate ${lessonItem.title}`}
+                        onClick={() => duplicateLesson(chapterAt, index)}
+                      >
+                        ⧉
+                      </button>
+                      <button
+                        className="danger"
+                        aria-label={`Delete ${lessonItem.title}`}
+                        disabled={item.lessons.length <= 1}
+                        onClick={() => deleteLesson(chapterAt, index)}
+                      >
+                        ×
+                      </button>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             ))}
           </div>
           <div className="structure-actions">
@@ -259,46 +318,6 @@ export default function CreatePage() {
               Delete chapter
             </button>
           </div>
-          <ol>
-            {chapter.lessons.map((item, index) => (
-              <li
-                draggable
-                onDragStart={() => setDragged(index)}
-                onDragOver={(event) => event.preventDefault()}
-                onDrop={() => {
-                  if (dragged === undefined || dragged === index) return;
-                  editChapter((next) => {
-                    const [moved] = next.lessons.splice(dragged, 1);
-                    next.lessons.splice(index, 0, moved!);
-                  });
-                  setLessonIndex(index);
-                  setDragged(undefined);
-                }}
-                key={item.id}
-              >
-                <button
-                  className={index === lessonIndex ? "current" : ""}
-                  onClick={() => setLessonIndex(index)}
-                >
-                  {item.title}
-                </button>
-                <button
-                  aria-label={`Duplicate ${item.title}`}
-                  onClick={() => duplicateLesson(index)}
-                >
-                  ⧉
-                </button>
-                <button
-                  className="danger"
-                  aria-label={`Delete ${item.title}`}
-                  disabled={chapter.lessons.length <= 1}
-                  onClick={() => deleteLesson(index)}
-                >
-                  ×
-                </button>
-              </li>
-            ))}
-          </ol>
           <button className="text-button" onClick={addLesson}>
             + Lesson
           </button>
